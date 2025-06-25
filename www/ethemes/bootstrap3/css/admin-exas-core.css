@@ -1422,7 +1422,7 @@ td.visible-print,th.visible-print{display:table-cell!important}
 }
 .popover{color:#fff}
 .popover-title{font-weight:700}
-.navbar{background: #02243F url(../images/adminnavbg.png) repeat-x 0 0; color: #ffffff;filter:none;border:1px solid rgba(0,0,0,.6);text-shadow:1px 1px 1px rgba(0,0,0,.3)}
+.navbar{background: #02243F; color: #ffffff;filter:none;border:1px solid rgba(0,0,0,.6);text-shadow:1px 1px 1px rgba(0,0,0,.3)}
 .navbar-inverse{background-image:linear-gradient(#303030,#212121 60%,#171717);filter:none}
 .navbar-inverse .badge{background-color:#080808}
 .navbar-nav>li>a{border-right:1px solid rgba(0,0,0,.2);border-left:1px solid rgba(255,255,255,.1)}
@@ -1497,7 +1497,7 @@ a.thumbnail.active,a.thumbnail:focus,a.thumbnail:hover{border-color:#0f0f0f}
 .jumbotron{border:1px solid rgba(0,0,0,.6)}
 .panel-danger .panel-heading,.panel-info .panel-heading,.panel-primary .panel-heading,.panel-success .panel-heading,.panel-warning .panel-heading{border-color:#000}
 .btn:focus,.nav-pills>li>a,.nav-tabs>li>a,.navbar-default .navbar-nav>li>a,.navbar-inverse .navbar-nav>li>a,a,a:active,a:hover{outline:0}
-th a,tr.first a{color:#c6c6c6}
+ 
 thead tr{background-color:#363636;background-image:linear-gradient(to bottom,#444,#222);border:1px solid #030303}
 .datetimepicker,.datetimepicker tfoot tr:first-child th:hover,.datetimepicker thead tr:first-child th:hover{background-color:#cdcdcd}
 .nav-collapse .dropdown-menu a:focus,.nav-collapse .dropdown-menu a:hover,.nav-collapse .nav>li>a:focus,.nav-collapse .nav>li>a:hover{background-color:#363636}
@@ -1609,9 +1609,7 @@ a:focus,a:hover{
 .navbar {
   border-radius: 0px;
 }
-th a, tr.first a {
-  color: #000;
-}
+ 
 a.list-group-item:focus,a.list-group-item:hover,button.list-group-item:focus,button.list-group-item:hover{text-decoration:none;color:#fff;background-color:#022643}
 optgroup{
 	color:#fff; 
@@ -3976,9 +3974,7 @@ a:focus,a:hover{
 .navbar {
   border-radius: 0px;
 }
-th a, tr.first a {
-  color: #000;
-}
+ 
 a.list-group-item:focus,a.list-group-item:hover,button.list-group-item:focus,button.list-group-item:hover{text-decoration:none;color:#fff;background-color:#022643}
 optgroup{
 	color:#fff; 
