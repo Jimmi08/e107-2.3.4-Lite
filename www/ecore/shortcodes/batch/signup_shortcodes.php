@@ -530,7 +530,7 @@ class signup_shortcodes extends e_shortcode
 			'avatar'    => 'signup_option_image',
 			'signature' => 'signup_option_signature',
 		);
-
+ 
 		if((!empty($parm) && !empty($mandatory[$parm]) && (int) $pref[$mandatory[$parm]] === 2) || $parm === 'true' || ($parm === 'email' && empty($pref['disable_emailcheck'])))
 		{
 			return "<span class='required'><!-- empty --></span>";
@@ -661,5 +661,3 @@ class signup_shortcodes extends e_shortcode
 	}
 
 }
-
-

@@ -158,7 +158,7 @@ class login_shortcodes extends e_shortcode
 		{
 			$parm['label'] = LAN_LOGIN_8;
 		}
-
+ 
 		return e107::getForm()->checkbox('autologin',1,false,$parm);
 
 	}
@@ -205,8 +205,16 @@ class login_shortcodes extends e_shortcode
 		if($this->userReg === 1)
 		{
 		  $class = (!empty($parm['class'])) ? "class='".$parm['class']."'" : "";
-		  
-			return "<a href='".e_SIGNUP."' ".$class.">".LAN_LOGIN_11."</a>";
+
+			if (!isset($parm['label']))
+			{
+				$parm['label'] = LAN_LOGIN_11;
+			}
+
+		
+				
+
+				return "<a href='".e_SIGNUP."' ".$class.">" .$parm['label']."</a>";
 		}
 
 		return null;
@@ -222,8 +230,13 @@ class login_shortcodes extends e_shortcode
 			return null;
 		}
 
-        $class = (!empty($parm['class'])) ? "class='".$parm['class']."'" : "";
-		return "<a href='".e_HTTP."fpw.php' ".$class.">".LAN_LOGIN_12."</a>";
+		if (!isset($parm['label']))
+		{
+			$parm['label'] = LAN_LOGIN_12;
+		}
+
+		$class = (!empty($parm['class'])) ? "class='".$parm['class']."'" : "";
+		return "<a href='".e_HTTP."fpw.php' ".$class.">". $parm['label']."</a>";
 	}
 	
 
