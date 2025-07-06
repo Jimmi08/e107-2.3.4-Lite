@@ -131,6 +131,7 @@ class plugman_adminArea extends e_admin_dispatcher
 		if(deftrue('e_DEVELOPER'))
 		{
 			e107::getPlug()->clearCache();
+			$this->adminMenu['create/build'] = array('caption'=>EPL_ADLAN_114, 'perm' => '0', 'icon'=>'fas-toolbox');
 		}
 	}
 
