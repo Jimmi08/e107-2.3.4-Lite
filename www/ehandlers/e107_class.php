@@ -5547,8 +5547,11 @@ class e107
 
 
 		// login/signup
+		if (!defined('e_SIGNUP'))
+		{
 		define('e_SIGNUP', SITEURL.(file_exists(e_BASE.'customsignup.php') ? 'customsignup.php' : 'signup.php'));
-
+		}
+		
 		if(!defined('e_LOGIN'))
 		{
 			define('e_LOGIN', SITEURL.(file_exists(e_BASE.'customlogin.php') ? 'customlogin.php' : 'login.php'));
