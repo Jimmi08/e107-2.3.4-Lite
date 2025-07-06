@@ -577,11 +577,12 @@ $content .= '}';
 
 			array_unshift($list,'_blank', '_blank_setup', '_blank_menu', '_blank_template', '_blank_shortcodes');
 
-			$templateFiles = scandir(e_PLUGIN."_blank");
+			$templateDir = e_PLUGIN . "_blank";
+			$templateFiles = is_dir($templateDir) ? scandir($templateDir) : array();
 
 
 
-	//print_a($list);
+	 	//var_dump($templateFiles);
 		//	$list[] = "_blank";
 		//	$list[] = "_blank_setup";
 
