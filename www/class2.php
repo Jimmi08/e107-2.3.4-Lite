@@ -756,11 +756,19 @@ if(!isset($_E107['no_module']))
 	}
 }
 
-//
-// P: THEME LOADING
-//
+//login/signup callback if it is not set in e_module
+if (!defined('e_SIGNUP'))
+{
+	define('e_SIGNUP', SITEURL . (file_exists(e_BASE . 'customsignup.php') ? 'customsignup.php' : 'signup.php'));
+}
+
+if (!defined('e_LOGIN'))
+{
+	define('e_LOGIN', SITEURL . (file_exists(e_BASE . 'customlogin.php') ? 'customlogin.php' : 'login.php'));
+}
 
 
+//P: THEME LOADING
 
 if(!defined('USERTHEME') && !isset($_E107['no_theme']))
 {
@@ -1668,10 +1676,10 @@ function init_session()
 		define('USERSIGNATURE', $user->get('user_signature'));
 
 
-		if(ADMIN && empty($_E107['no_online']) && empty($_E107['no_forceuserupdate'])) // XXX - why for admins only?
-		{
-			e107::getRedirect()->setPreviousUrl();
-		}
+		// if(ADMIN && empty($_E107['no_online']) && empty($_E107['no_forceuserupdate'])) // XXX - why for admins only?
+		// {
+		// 	e107::getRedirect()->setPreviousUrl();
+		// }
 
 		define('USERLV', $user->get('user_lastvisit'));
 
