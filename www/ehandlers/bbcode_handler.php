@@ -834,6 +834,11 @@ class e_bbcode
 
 
 			$code_text = (strpos($img['src'],'http') === 0) ? $img['src'] : str_replace($tp->getUrlConstants('raw'), $tp->getUrlConstants('sc'), $qr['src']);
+			if ($code_text == '')
+			{
+				$code_text = $img['src'];
+			}
+
 
 			unset($img['src'],$img['srcset'],$img['@value'], $img['caption'], $img['alt']);
 			$parms = !empty($img) ? ' '.str_replace('+', ' ', http_build_query($img)) : "";
@@ -1096,4 +1101,3 @@ class e_bb_base
 		return $this->toWYSIWYG($code_text, $parm);
 	}
 }
-
