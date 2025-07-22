@@ -30,7 +30,7 @@ if ((USER || e_LOGIN != e_SELF || (empty($pref['user_reg']) && !e107::getUserPro
 e107::coreLan('login');
 
 
-if(!defined('e_IFRAME')) define('e_IFRAME',true);
+//if(!defined('e_IFRAME')) define('e_IFRAME',true);
 
 $LOGIN_TEMPLATE = e107::getCoreTemplate('login');
 
@@ -42,7 +42,6 @@ else
 {
 	if (!defined('e_IFRAME')) define('e_IFRAME', true);
 }
-
 
 require_once(HEADERF);
 $use_imagecode = ($pref['logcode'] && extension_loaded("gd"));
