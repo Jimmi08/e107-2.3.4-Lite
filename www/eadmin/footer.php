@@ -98,7 +98,7 @@ if (varset($e107_popup) != 1)
 	//NEW - Iframe mod
 	if (!deftrue('e_IFRAME'))
 	{
-		$ADMIN_FOOTER = e107::getCoreTemplate('admin', 'footer', false);
+		$ADMIN_FOOTER = e107::getCoreTemplate('admin', 'footer', true);
 		e107::renderLayout($ADMIN_FOOTER, ['sc'=>'admin']);
 	}
 	

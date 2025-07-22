@@ -584,8 +584,8 @@ if($e107_popup != 1)
 	if(!deftrue('e_IFRAME'))
 	{
 		//removed  check strpos(e_SELF.'?'.e_QUERY, 'menus.php?configure') === FALSE
-		$ADMIN_HEADER = e107::getCoreTemplate('admin', 'header', false);
-		$ADMIN_MODAL = e107::getCoreTemplate('admin', 'modal', false);
+		$ADMIN_HEADER = e107::getCoreTemplate('admin', 'header', true);
+		$ADMIN_MODAL = e107::getCoreTemplate('admin', 'modal', true);
 
 		e107::renderLayout($ADMIN_MODAL . $ADMIN_HEADER, ['sc'=>'admin']);
 	}
