@@ -4375,3 +4375,15 @@ tr.even.last {
   border-bottom-color: transparent;
   cursor: default;
 }
+
+#core-core-media-list-table td:nth-child(2) { 
+  /* Targets the second column in MM dialog */
+  word-break: break-all;
+  white-space: normal;
+}
+#core-core-media-list-table td:nth-child(4),
+#core-core-media-list-table td:nth-child(6) {
+  /* Targets the 4th column in MM */
+  word-break: break-all;
+  white-space: normal;
+}
