@@ -1278,7 +1278,7 @@ class e_session_db implements SessionHandlerInterface
      * @param string $name
      * @return bool
      */
-    public function open(string $path, string $name): bool
+    public function open($path,  $name)
     {
         return true;
     }
@@ -1287,7 +1287,7 @@ class e_session_db implements SessionHandlerInterface
      * Close session
      * @return bool
      */
-    public function close(): bool
+    public function close()
     {
         $this->gc($this->getLifetime());
         return true;
@@ -1298,7 +1298,7 @@ class e_session_db implements SessionHandlerInterface
      * @param string $id
      * @return string|false
      */
-    public function read(string $id): string|false
+    public function read($id)
     {
         $data = false;
         $check = $this->_db->select($this->getTable(), 'session_data', "session_id='".$this->_sanitize($id)."' AND session_expires>".time());
@@ -1320,7 +1320,7 @@ class e_session_db implements SessionHandlerInterface
      * @param string $data
      * @return bool
      */
-    public function write(string $id, string $data): bool
+    public function write($id, $data)
     {
         $session_data = array(
             'data' => array(
@@ -1367,7 +1367,7 @@ class e_session_db implements SessionHandlerInterface
      * @param string $id
      * @return bool
      */
-    public function destroy(string $id): bool
+    public function destroy($id) 
     {
         $id = $this->_sanitize($id);
         $this->_db->delete($this->getTable(), "`session_id`='$id'");
@@ -1379,7 +1379,7 @@ class e_session_db implements SessionHandlerInterface
      * @param int $max_lifetime
      * @return bool
      */
-    public function gc(int $max_lifetime): int|false
+    public function gc($maxlifetime)
     {
         return $this->_db->delete($this->getTable(), '`session_expires`<'.time());
     }
@@ -1389,7 +1389,7 @@ class e_session_db implements SessionHandlerInterface
      * @param string $id
      * @return string
      */
-    protected function _sanitize(string $id): string
+    protected function _sanitize($id)
     {
         return preg_replace('#[^0-9a-zA-Z,-]#', '', $id);
     }

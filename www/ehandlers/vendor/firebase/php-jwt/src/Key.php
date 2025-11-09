@@ -6,24 +6,30 @@ use InvalidArgumentException;
 use OpenSSLAsymmetricKey;
 use OpenSSLCertificate;
 use TypeError;
+ 
 
 class Key
 {
+    /** @var string|resource */
+    private $keyMaterial;
+
+    /** @var string */
+    private $algorithm;
+
     /**
-     * @param string|resource|OpenSSLAsymmetricKey|OpenSSLCertificate $keyMaterial
+     * @param string|resource $keyMaterial
      * @param string $algorithm
      */
-    public function __construct(
-        private $keyMaterial,
-        private string $algorithm
-    ) {
+    public function __construct($keyMaterial, $algorithm)
+    {
+        $this->keyMaterial = $keyMaterial;
+        $this->algorithm = $algorithm;
+
         if (
-            !\is_string($keyMaterial)
-            && !$keyMaterial instanceof OpenSSLAsymmetricKey
-            && !$keyMaterial instanceof OpenSSLCertificate
-            && !\is_resource($keyMaterial)
+            !is_string($keyMaterial)
+            && !is_resource($keyMaterial)
         ) {
-            throw new TypeError('Key material must be a string, resource, or OpenSSLAsymmetricKey');
+            throw new TypeError('Key material must be a string or resource');
         }
 
         if (empty($keyMaterial)) {
@@ -40,16 +46,18 @@ class Key
      *
      * @return string
      */
-    public function getAlgorithm(): string
+    public function getAlgorithm()
     {
         return $this->algorithm;
     }
 
     /**
-     * @return string|resource|OpenSSLAsymmetricKey|OpenSSLCertificate
+     * @return string|resource
      */
     public function getKeyMaterial()
     {
         return $this->keyMaterial;
     }
 }
+
+?>

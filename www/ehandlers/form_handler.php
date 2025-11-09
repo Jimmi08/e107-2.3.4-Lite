@@ -4535,33 +4535,36 @@ var_dump($select_options);*/
 	public function columnSelector($columnsArray, $columnsDefault = array(), $id = 'column_options')
 	{
 		$columnsArray = array_filter($columnsArray);
+		$tabs = [];
 
-		try
+		if ($adminUI = e107::getAdminUI())
 		{
-			$tabs = e107::getAdminUI()->getController()->getTabs();
-		}
-		catch (Exception $e)
-		{
-		   // do something
+			try
+			{
+				$tabs = $adminUI->getController()->getTabs();
+			}
+			catch (Exception $e)
+			{
+				// do something
+			}
 		}
 
 
-		
-	// navbar-header nav-header
-	// navbar-header nav-header
+		// navbar-header nav-header
+		// navbar-header nav-header
 		$text = '<div class="col-selection dropdown e-tip pull-right float-right" data-placement="left">
-    <a class="dropdown-toggle" title="'.LAN_EFORM_008.'" data-toggle="dropdown" data-bs-toggle="dropdown" href="#"><b class="caret"></b></a>
+    <a class="dropdown-toggle" title="' . LAN_EFORM_008 . '" data-toggle="dropdown" data-bs-toggle="dropdown" href="#"><b class="caret"></b></a>
     <ul class="list-group dropdown-menu  col-selection e-noclick" role="menu" aria-labelledby="dLabel">
    
-    <li class="list-group-item "><h5 class="list-group-item-heading">'.LAN_EFORM_009.'</h5></li>
+    <li class="list-group-item "><h5 class="list-group-item-heading">' . LAN_EFORM_009 . '</h5></li>
     <li class="list-group-item col-selection-list">
      <ul class="nav scroll-menu" >';
-		
-        unset($columnsArray['options'], $columnsArray['checkboxes']);
 
-		foreach($columnsArray as $key => $fld)
+		unset($columnsArray['options'], $columnsArray['checkboxes']);
+
+		foreach ($columnsArray as $key => $fld)
 		{
-			if(!isset($fld['type']) || $fld['type'] === null) // Fixes #4083
+			if (!isset($fld['type']) || $fld['type'] === null) // Fixes #4083
 			{
 				continue;
 			}
@@ -4569,14 +4572,14 @@ var_dump($select_options);*/
 			$theType = vartrue($fld['type']);
 			if (empty($fld['forced']) && empty($fld['nolist']) && $theType !== 'hidden' && $theType !== 'upload')
 			{
-				$checked = (in_array($key,$columnsDefault)) ?  TRUE : FALSE;
+				$checked = (in_array($key, $columnsDefault)) ?  TRUE : FALSE;
 				$title = '';
-				if(isset($fld['tab']))
+				if (isset($fld['tab']))
 				{
 					$tb = $fld['tab'];
-					if(!empty($tabs[$tb]))
+					if (!empty($tabs[$tb]))
 					{
-						$title = $tabs[$tb].": ";
+						$title = $tabs[$tb] . ": ";
 					}
 				}
 
@@ -4585,7 +4588,7 @@ var_dump($select_options);*/
 
 				$text .= "
 					<li role='menuitem'><a href='#' title=\"$title\">
-						".$this->checkbox('e-columns[]', $key, $checked,'label='.$ttl). '
+						" . $this->checkbox('e-columns[]', $key, $checked, 'label=' . $ttl) . '
 					</a>
 					</li>
 				';
@@ -4593,32 +4596,33 @@ var_dump($select_options);*/
 		}
 
 		// has issues with the checkboxes.
-        $text .= "
+		$text .= "
 				</ul>
 				</li>
 				 <li class='list-group-item'>
 				<div id='{$id}-button' class='right'>
-					".$this->admin_button('etrigger_ecolumns', LAN_SAVE, 'btn btn-primary btn-small'). '
+					" . $this->admin_button('etrigger_ecolumns', LAN_SAVE, 'btn btn-primary btn-small') . '
 				</div>
 				 </li>
 				</ul>
 			</div>';
-			
-	//	$text .= "</div></div>";
+
+		//	$text .= "</div></div>";
 
 		$text .= '';
-	
-	
-	/*
+
+
+		/*
 	$text = '<div class="dropdown">
     <a class="dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" href="#"><b class="caret"></b></a>
     <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
     <li>hi</li>
     </ul>
     </div>';
-	*/	
+	*/
 		return $text;
 	}
+
 
 
 	/**

@@ -176,7 +176,7 @@ class e_url
 				{
 					$redirect = e107::getParser()->replaceConstants($newLocation);
 
-					if ($v['norewrite'])
+					if (isset($v['norewrite']) && $v['norewrite'])
 					{
 						e107::redirect($redirect, 301);
 					}
