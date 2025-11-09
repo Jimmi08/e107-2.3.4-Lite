@@ -1184,7 +1184,12 @@ class e107_user_extended
 	{
 		$tp = e107::getParser();
 		$frm = e107::getForm();
-		$curval = trim($curval);
+ 
+		if (is_string($curval))
+		{
+			$curval = trim($curval);
+		}
+	 
 
 		if(empty($curval) && !empty($struct['user_extended_struct_default']))
 		{
@@ -1226,7 +1231,7 @@ class e107_user_extended
 		}
 
 		$ret = null;
-
+ 
 		switch($struct['user_extended_struct_type'])
 		{
 
@@ -1426,7 +1431,12 @@ class e107_user_extended
 						$curval = '';
 					}
 
-					if(THEME_LEGACY === true)
+					if($fname == "ue[user_birthday]") {
+						$opts = array('format' => 'yyyy-mm-dd');
+						return $this->custom_date_select($fname, $curval, $opts);
+					}
+
+					if (THEME_LEGACY === true)
 					{
 					    if(empty($opts['placeholder']))
                         {
@@ -1443,7 +1453,7 @@ class e107_user_extended
                     {
                         $opts['required'] = true;
                     }
-
+  
 					return e107::getForm()->datepicker($fname,$curval,$opts);
 					break;
 
@@ -1914,6 +1924,104 @@ class e107_user_extended
 
 
 
+	// Custom function to generate date select fields
+function custom_date_select($name, $curval = '', $opts = array()) {
+    $output = '';
+    $format = isset($opts['format']) ? $opts['format'] : 'yyyy-mm-dd';
+
+    // Split current value if set
+    $selected_year = $selected_month = $selected_day = '';
+    if ($curval && preg_match('/^(\d{4})-(\d{2})-(\d{2})$/', $curval, $matches)) {
+        $selected_year = $matches[1];
+        $selected_month = $matches[2];
+        $selected_day = $matches[3];
+    }
+
+    // Sanitize name for ID (replace brackets with hyphens)
+    $id_base = str_replace(['[', ']'], ['-', ''], $name);
+
+    // Days (1-31)
+    $days = range(1, 31);
+    $output .= '<div class="d-flex "><div class="col order-1 pe-1"><select required name="' . $name . '[day]" class="form-select me-2" id="' . $id_base . '-day">';
+    $output .= '<option value="" selected hidden>DD</option>';
+    foreach ($days as $day) {
+        $output .= '<option value="' . sprintf('%02d', $day) . '" ' . ($selected_day == sprintf('%02d', $day) ? 'selected' : '') . '>' . sprintf('%02d', $day) . '</option>';
+    }
+    $output .= '</select></div>';
+
+    // Months (01-12)
+    $months = range(1, 12);
+    $output .= '<div class="col order-2 pe-1"><select required name="' . $name . '[month]" class="form-select me-2" id="' . $id_base . '-month">';
+    $output .= '<option value="" selected hidden>MM</option>';
+    foreach ($months as $month) {
+        $output .= '<option value="' . sprintf('%02d', $month) . '" ' . ($selected_month == sprintf('%02d', $month) ? 'selected' : '') . '>' . sprintf('%02d', $month) . '</option>';
+    }
+    $output .= '</select></div>';
+
+    // Years (e.g., 1900-2025)
+ 
+	$end_year = date('Y') + 1 - 18;
+	$start_year = $end_year - 80 ;
+    $years = range($end_year, $start_year);
+    $output .= '<div class="col order-3 "><select requiredname="' . $name . '[year]" class="form-select me-2" id="' . $id_base . '-year">';
+    $output .= '<option value="" selected hidden>YYYY</option>';
+    foreach ($years as $year) {
+        $output .= '<option value="' . $year . '" ' . ($selected_year == $year ? 'selected' : '') . '>' . $year . '</option>';
+    }
+    $output .= '</select></div></div>';
+
+    // Hidden input to store the combined date
+    $output .= '<input type="hidden" name="' . $name . '" id="' . $id_base . '" value="' . htmlspecialchars($curval) . '">';
+
+    // Embed JavaScript
+    $output .= '<script>';
+    $output .= "document.addEventListener('DOMContentLoaded', function() {
+        function updateHiddenInput() {
+            const day = document.getElementById('" . $id_base . "-day').value;
+            const month = document.getElementById('" . $id_base . "-month').value;
+            const year = document.getElementById('" . $id_base . "-year').value;
+            const hiddenInput = document.getElementById('" . $id_base . "');
+
+            // Validate date
+            if (day && month && year) {
+   
+			    const date = new Date(year, month - 1, day); // month is 0-based
+				const lastDayOfMonth = new Date(year, month, 0).getDate(); // Last day of the selected month
+ 
+				const isValid = parseInt(day) <= lastDayOfMonth && parseInt(day) > 0;
+ 
+                if (isValid) {
+                    hiddenInput.value = year + '-' + month + '-' + day;
+                } else {
+                    hiddenInput.value = ''; // Clear if invalid
+                    alert('Invalid date! Please check day, month, and year combination.');
+                }
+            } else {
+                hiddenInput.value = '';
+            }
+        }
+
+        // Add event listeners to all select fields
+        const selects = [
+            document.getElementById('" . $id_base . "-day'),
+            document.getElementById('" . $id_base . "-month'),
+            document.getElementById('" . $id_base . "-year')
+        ];
+        selects.forEach(select => {
+            if (select) {
+                select.addEventListener('change', updateHiddenInput);
+            } else {
+                console.error('Select element not found for ID: ' + select);
+            }
+        });
+
+        // Initial call to set the value if pre-selected
+        updateHiddenInput();
+    });";
+    $output .= '</script>';
+
+    return $output;
 }
-
-
+ 
+ 
+}
