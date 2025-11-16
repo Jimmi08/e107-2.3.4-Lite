@@ -1,4 +1,4 @@
-[![e107 Content Management System](e107_images/logoHD.png)](https://e107.org)
+[![e107 Content Management System](eimages/logoHD.png)](https://e107.org)
 =================
 
 This is custom version of e107 CMS. Don't use it. It is public to be able syncing via plugin. 
