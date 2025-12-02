@@ -19,7 +19,7 @@ Some plugins are moved to separate repos:
 
 [e107 Chatbox Plugin](https://github.com/Jimako-e107-plugins/chatbox)
 
-[e107 Gallery Plugin](https://github.com/Jimako-e107-plugins/gallery)
+[e107 SP Gallery Plugin](https://github.com/Jimako-e107-plugins/e107-spgallery-plugin)
 
 [e107 FAQs Plugin](https://github.com/Jimako-e107-plugins/faqs)
 
