@@ -49,3 +49,7 @@ Use at your own risk.
 
 *e107 2.3.4 Lite is an unofficial, developer-focused build of the open-source e107 CMS.  
 Use responsibly and at your own risk.*
+
+
+## Special plugins for this version:
+[e107 SP Gallery Plugin](https://github.com/Jimako-e107-plugins/e107-spgallery-plugin)
