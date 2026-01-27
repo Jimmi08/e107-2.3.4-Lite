@@ -176,6 +176,27 @@ JS;
 						->setMode('main')
 						->setAction('logoutas');
 				break;
+
+				case 'emulate':
+					$this->getRequest()
+						->setQuery(array())
+						->setMode('main')
+						->setAction('emulate');
+				break;
+
+				case 'copyperms':
+					$this->getRequest()
+						->setQuery(array())
+						->setMode('main')
+						->setAction('copyperms');
+				break;
+
+				case 'pasteperms':
+					$this->getRequest()
+						->setQuery(array())
+						->setMode('main')
+						->setAction('pasteperms');
+				break;
 				
 				// redirect to AdminObserver/AdminPage()
 				case 'admin':
@@ -841,6 +862,72 @@ class users_admin_ui extends e_admin_ui
 	{
 		// System Message only on non-successful logout as another user 
 	}
+
+
+	/**
+	 * Allows the emulation of a user ID if the current user has sufficient permissions and a user ID is provided.
+	 * If the conditions are met, a message with the emulated User ID is displayed, and the session is updated to emulate the specified user ID.
+	 *
+	 * @return void
+	 */
+	public function emulatePage()
+	{
+
+		if(getperms('0') && !empty($_POST['userid']))
+		{
+			$uid = (int) $_POST['userid'];
+			e107::getSession()->set('emulate',$uid);
+			$user = e107::user($uid);
+			e107::getMessage()->addSuccess("Emulation of <strong>".$user['user_name']."</strong> activated.", 'default', true);;
+		}
+
+		$this->redirect('list', 'main', true);
+
+	}
+
+	public function copypermsPage()
+	{
+		if(getperms('0') && !empty($_POST['userid']))
+		{
+			$uid = (int) $_POST['userid'];
+			e107::getSession()->set('copyperms',$uid);
+			$user = e107::user($uid);
+			e107::getMessage()->addSuccess("Copied permissions of <strong>".$user['user_name']."</strong> to clipboard.", 'default', true);;
+		}
+
+		$this->redirect('list', 'main', false);
+
+	}
+
+	public function pastepermsPage()
+	{
+		$originUser = (int) e107::getSession()->get('copyperms', true);
+
+		if(getperms('0') && !empty($_POST['userid']) && $originUser)
+		{
+			if(!$user = e107::getDb()->retrieve('user', 'user_name, user_admin, user_class, user_perms', 'user_id='.$originUser))
+			{
+				e107::getMessage()->addError("Failed to retrieve user permissions.", 'default', true);
+				return;
+			}
+
+			$destUser = (int) $_POST['userid'];
+
+			$sysuser = e107::getSystemUser($destUser, false);
+
+			 $result =	$sysuser->set('user_perms', $user['user_perms'])
+				->set('user_class', $user['user_class'])
+				->save();
+
+				$name = $sysuser->getName();
+
+			e107::getMessage()->addSuccess("Copied permissions from <strong>".$user['user_name']."</strong> to <strong>$name</strong>.", 'default', true);;
+		}
+
+		$this->redirect('list', 'main', false);
+
+	}
+
 	
 	/**
 	 * Remove admin status trigger
@@ -2530,6 +2617,21 @@ class users_admin_form_ui extends e_admin_form_ui
 				{
 			//		$text .= "<option value='adminperms'>".USRLAN_221."</option>\n";
 			//		$text .= "<option value='unadmin'>".USRLAN_34."</option>\n";
+
+					if(getperms('0'))
+					{
+						$opts['emulate'] = 'Emulate permissions';
+
+						if(e107::getSession()->get('copyperms'))
+						{
+							$opts['pasteperms'] = 'Paste permissions';
+						}
+						else
+						{
+							$opts['copyperms'] = 'Copy permissions';
+						}
+
+					}
 
 					$opts['adminperms'] = USRLAN_221;
 					$opts['unadmin']     = USRLAN_34;

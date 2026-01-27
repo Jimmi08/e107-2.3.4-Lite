@@ -3,7 +3,7 @@
         'name' => 'e107inc/e107',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => 'c3c35f09da324355b74706f341fcbbc46f94c573',
+        'reference' => 'f275084f6c63a72a89ccf140f5a73051fef568d8',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         'e107inc/e107' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => 'c3c35f09da324355b74706f341fcbbc46f94c573',
+            'reference' => 'f275084f6c63a72a89ccf140f5a73051fef568d8',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../../',
             'aliases' => array(),

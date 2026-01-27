@@ -10,4 +10,4 @@
 
 if (!defined('e107_INIT')) { exit; }
 
-$e107info['e107_version'] = "2.3.4 (lite)";
+$e107info['e107_version'] = "2.3.4.1 (lite)";

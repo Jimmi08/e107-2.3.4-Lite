@@ -131,3 +131,4 @@ define("RL_LAN_134", "Warning");
 define("RL_LAN_135", "Fatal");
 // define("RL_LAN_JS_CONFIRM", "Are you sure?");
 
+define("RL_LAN_136", "User navigation trail");
