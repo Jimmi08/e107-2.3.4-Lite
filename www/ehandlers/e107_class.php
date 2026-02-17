@@ -3215,8 +3215,8 @@ class e107
 			return $temp;
 		}
 
-		$ADMIN_ICONS_TEMPLATE = self::getCoreTemplate('admin_icons', null, false);
-
+		$ADMIN_ICONS_TEMPLATE = self::getCoreTemplate('admin_icons', null, true);
+ 
 		if(self::getPref('admincss') === 'css/kadmin.css')
 		{
 			$ADMIN_ICONS_TEMPLATE['ADMIN_INSTALLPLUGIN_ICON']   = "<i class='fa fa-cog fa-2x fa-fw'></i>";
