@@ -172,7 +172,7 @@ class e107
 	 */
 	protected static $_known_handlers = array(
 		'UserHandler'                    => '{e_HANDLER}user_handler.php',
-		'comment'                        => '{e_HANDLER}comment_class.php',
+		'comment'                        => '{e_PLUGIN}comment/handlers/comment_class.php',
 		'e_date'                         => '{e_HANDLER}date_handler.php',
 		'convert'                        => '{e_HANDLER}date_handler.php', // BC Fix.
 		'db'                             => '{e_HANDLER}e_db_pdo_class.php',
@@ -2266,6 +2266,11 @@ class e107
 	 */
 	public static function getComment()
 	{
+		if (!e107::isInstalled('comments'))
+		{
+			return null;
+		}
+
 		return self::getSingleton('comment');
 	}
 
