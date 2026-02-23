@@ -7,7 +7,7 @@
 if (!defined('e107_INIT')) { exit; }
 
 class siteinfo_shortcodes // must match the folder name of the plugin. 
-{
+{ 
 	function sc_sitebutton($parm=null)
 	{
 		
@@ -184,7 +184,9 @@ class siteinfo_shortcodes // must match the folder name of the plugin.
 		}
 
 		$opts = array('alt'=>SITENAME, 'class'=>'logo img-responsive img-fluid');
-
+		//to allow using custom classes for sitelogo with img tag
+		if($parm['class']) $opts['class'] = $parm['class'];
+;
 		if(!empty($dimensions[0]))
 		{
 			$opts['w'] = $dimensions[0];
