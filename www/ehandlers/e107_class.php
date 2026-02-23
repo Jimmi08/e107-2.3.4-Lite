@@ -255,7 +255,7 @@ class e107
 		'news'                           => '{e_HANDLER}news_class.php',
 		'notify'                         => '{e_HANDLER}notify_class.php',
 		'override'                       => '{e_HANDLER}override_class.php',
-		'rater'                          => '{e_HANDLER}rate_class.php',
+		'rater'                          => '{e_PLUGIN}rater/handlers/rate_class.php',
 		'redirection'                    => '{e_HANDLER}redirection_class.php',
 		'secure_image'                   => '{e_HANDLER}secure_img_handler.php',
 		'sitelinks'                      => '{e_HANDLER}sitelinks_class.php',
@@ -1693,6 +1693,11 @@ class e107
 	 */
 	public static function getRate()
 	{
+		if (!e107::isInstalled('rater'))
+		{
+			return null;
+		}
+
 		return self::getSingleton('rater');
 	}
 
