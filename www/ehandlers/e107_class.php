@@ -2271,7 +2271,7 @@ class e107
 	 */
 	public static function getComment()
 	{
-		if (!e107::isInstalled('comments'))
+		if (!e107::isInstalled('comment'))
 		{
 			return null;
 		}
