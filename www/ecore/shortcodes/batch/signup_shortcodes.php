@@ -291,17 +291,20 @@ class signup_shortcodes extends e_shortcode
 		return e107::getForm()->email('email_confirm', $val, 100, $options);
 
 	}
-	
-	
+
+	/* {SIGNUP_HIDE_EMAIL} */
 	function sc_signup_hide_email()
 	{
 		global $rs;
 		$default_email_setting = 1;   // Gives option of turning into a pref later if wanted
 		$pref = e107::getPref('signup_option_hideemail');
 
+		$options['class']       = vartrue($parm['class'], '');
+
 		if ($pref)
 		{
-			return $rs->form_radio("hideemail", 1, $default_email_setting==1)." <label for='hideemail1'>".LAN_YES."</label> &nbsp;&nbsp;".$rs->form_radio("hideemail",  0,$default_email_setting==0)." <label for='hideemail0'>".LAN_NO."</label>";
+			return e107::getForm()->radio_switch("hideemail", $default_email_setting, LAN_YES, LAN_NO, $options);
+
 		}
 
 		return null;
@@ -370,8 +373,7 @@ class signup_shortcodes extends e_shortcode
 		);
 
 		return $tp->simpleParse($USERCLASS_SUBSCRIBE_ROW, $shortcodes);*/
-
-	}
+}
 
 
 	function sc_signup_extended_user_fields($parm = null)
