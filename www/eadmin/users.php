@@ -504,7 +504,16 @@ class users_admin_ui extends e_admin_ui
 
 	}
 
+	function beforeDelete($data, $id)
+	{
 
+		if ($data['user_admin'] == 1)
+		{
+			e107::getMessage()->addWarning("Admin " . $data['user_name'] . " can't be deleted, remove admin rights first.");
+			return false;
+		}
+		else return true;
+	}
 
 
 	public function beforeUpdate($new_data, $old_data, $id)
