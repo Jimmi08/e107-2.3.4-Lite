@@ -2357,7 +2357,7 @@ class e107
 	 *   within a single request. The variant that has been passed first is used; different variant names in subsequent
 	 *   calls are ignored.
 	 *
-	 * @return array|boolean
+	 * @return array|boolean|null
 	 *  - In case of 'detect': An associative array containing registered information for the library specified by
 	 *    $name, or FALSE if the library $name is not registered.
 	 *  - In case of 'load': An associative array of the library information.
@@ -3649,7 +3649,7 @@ class e107
 	 * @param string $path
 	 * @param boolean $info
      * @param boolean $noWrapper
-	 * @return string|array
+	 * @return string|array|false
 	 */
 	public static function _getTemplate($id, $key, $reg_path, $path, $info = false, $noWrapper = false)
 	{
@@ -3711,43 +3711,133 @@ class e107
 	}
 
 	/**
-	 * Load language file, replacement of include_lan()
-	 * @outdated use e107::lan() or e107::coreLan(), e107::plugLan(), e107::themeLan()
-	 * @param string $path
-	 * @param boolean $force
-	 * @return string
+	 * Load a language file, serving as a replacement for the legacy include_lan() function.
+	 *
+	 * This method includes a language file and processes it based on its return type. For old-style files using define(),
+	 * it returns the result of the include operation (typically 1 for success). For new-style files returning an array,
+	 * it defines constants from the array and applies an English fallback if the current language is not English.
+	 *
+	 * For modern language loading, consider using e107::lan(), e107::coreLan(), e107::plugLan(), or e107::themeLan()
+	 * as they provide more structured and maintainable options.
+	 *
+	 * @param string $path  The full path to the language file (e.g., 'e107_languages/English/lan_admin.php' or 'folder/Spanish/Spanish_global.php').
+	 * @param bool   $force [optional] If true, forces inclusion with include() instead of include_once(). Defaults to false.
+	 * @param string $lang  [optional] The language of the file (e.g., 'English', 'Spanish'). If empty, uses e_LANGUAGE or defaults to 'English'.
+	 * @return bool|int|string Returns:
+	 *                      - false if the file is not readable or no fallback is available,
+	 *                      - int (typically 1) for successful inclusion of old-style files,
+	 *                      - true for successful processing of new-style array-based files,
+	 *                      - string (empty '') if the include result is unset for old-style files.
 	 */
-	public static function includeLan($path, $force = false)
+	public static function includeLan($path, $force = false, $lang = '')
 	{
-		if (!is_readable($path))
-		{
-			if ((e_LANGUAGE === 'English') || self::getPref('noLanguageSubs'))
-			{
-				return false;
-			}
-
-			self::getDebug()->log("Couldn't load language file: " . $path);
-
-			$path = str_replace(e_LANGUAGE, 'English', $path);
-
-			self::getDebug()->log("Attempts to load default language file: " . $path);
-
-			if(!is_readable($path))
-			{
-				self::getDebug()->log("Couldn't load default language file: " . $path);
-				return false;
-			}
-		}
 
 		$adminLanguage = self::getPref('adminlanguage');
 
-		if(e_ADMIN_AREA && vartrue($adminLanguage))
+		if(deftrue('e_ADMIN_AREA') && !empty($adminLanguage))
 		{
 			$path = str_replace(e_LANGUAGE, $adminLanguage, $path);
+			$lang = $adminLanguage;
 		}
 
-		$ret = ($force) ? include($path) : include_once($path);
+		if(is_readable($path))
+		{
+			$ret = ($force) ? include($path) : include_once($path);
+		}
+		else
+		{
+			$ret = false;
+		}
+
+		// Determine the language: use $lang if provided, otherwise fall back to e_LANGUAGE or 'English'
+		if ($lang)
+		{
+			$effectiveLang = $lang;
+		}
+		else
+		{
+			$effectiveLang = defined('e_LANGUAGE') ? e_LANGUAGE : 'English';
+		}
+
+		if(is_array($ret))
+		{
+			self::includeLanArray($ret, $path, $effectiveLang);
+
+			return true; // New-style success indicator
+		}
+		elseif($effectiveLang !== 'English' && !self::getPref('noLanguageSubs', false)) // Fallback
+		{
+			self::includeLanArray(null, $path, $effectiveLang);
+		}
+
+
+		// Old-style behavior: return the include result or empty string if unset
 		return (isset($ret)) ? $ret : "";
+	}
+
+	/**
+	 * Helper method to process array-based language files and apply English fallback.
+	 *
+	 * Defines constants from the provided terms array and, for non-English languages, ensures all English
+	 * constants are defined as a fallback for any missing terms.
+	 *
+	 * @param array  $terms The array of language constants returned by the included file (e.g., ['LAN_FOO' => 'Bar']).
+	 * @param string $path  The path to the language file, used to determine the English fallback path.
+	 * @param string $lang  The language of the current file (e.g., 'Spanish'), used to decide if English fallback is needed.
+	 * @return void
+	 */
+	private static function includeLanArray($terms, $path, $lang)
+	{
+
+		// Use basename of the path as a cache key (e.g., "Spanish_global.php")
+		$file_key = basename($path);
+
+		static $english_terms = []; // Cache English terms by file key
+
+		// Define constants from the current language’s array first
+		if(!empty($terms) && is_array($terms))
+		{
+			foreach($terms as $const => $value)
+			{
+				if(!defined($const))
+				{
+					define($const, $value);
+				}
+			}
+		}
+		// Load English fallback if not cached and not already English
+		if($lang !== 'English' && !isset($english_terms[$file_key]))
+		{
+			$english_path = str_replace($lang, 'English', $path);
+
+			if(is_readable($english_path))
+			{
+				$english_terms[$file_key] = include($english_path);
+				if(!is_array($english_terms[$file_key]))
+				{
+					$english_terms[$file_key] = [];
+				}
+			}
+			else
+			{
+				trigger_error("No English fallback found for: $english_path", E_USER_WARNING);
+				$english_terms[$file_key] = [];
+			}
+		}
+
+		// For non-English, define English constants only if not already defined
+
+		if($lang !== 'English' && !empty($english_terms[$file_key]))
+		{
+			foreach($english_terms[$file_key] as $const => $english_value)
+			{
+				if(!defined($const))
+				{
+					define($const, $english_value);
+					trigger_error("Missing $lang constant: $const in $path", E_USER_WARNING);
+				}
+			}
+		}
 	}
 
 	/**
@@ -3825,7 +3915,7 @@ class e107
 	 * @param string|bool|null $fname filename without the extension part (e.g. 'common')
 	 * @param boolean $flat false (default, preferred) Language folder structure; true - prepend Language to file name
 	 * @param boolean $returnPath When true, returns the path, but does not include the file or set the registry.
-	 * @return bool|null
+	 * @return bool|null|string
 	 */
 	public static function plugLan($plugin, $fname = '', $flat = false, $returnPath = false)
 	{
@@ -4685,8 +4775,9 @@ class e107
 		{
 			if (is_readable($s))
 			{
-				$ret = include_once($s);
-				return (isset($ret)) ? $ret : "";
+				return self::includeLan($s);
+			//	$ret = include_once($s);
+			//	return (isset($ret)) ? $ret : "";
 			}
 		}
 		if ((e_LANGUAGE === 'English') || self::getPref('noLanguageSubs'))
@@ -4699,8 +4790,9 @@ class e107
 			$s = str_replace(e_LANGUAGE, 'English', $s);
 			if (is_readable($s))
 			{
-				$ret = include_once($s);
-				return (isset($ret)) ? $ret : "";
+				return self::includeLan($s);
+			//	$ret = include_once($s);
+			//	return (isset($ret)) ? $ret : "";
 			}
 		}
 		return FALSE;		// Nothing found
