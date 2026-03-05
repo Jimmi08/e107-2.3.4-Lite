@@ -1255,7 +1255,7 @@ i.e-cat_users-32{ background-position: -555px 0; width: 32px; height: 32px; }
 		
 		if (!$tmpl)
 		{
-			$tmpl = e107::getCoreTemplate('admin', 'menu', false);
+			$tmpl = e107::getCoreTemplate('admin', 'menu', true);
 		}
 	
 		/*
