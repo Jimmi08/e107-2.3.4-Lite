@@ -465,39 +465,7 @@ $(document).ready(function()
 				return true;
 			}
 		);
-
-
-		$('a[data-toggle-sidebar], .e-toggle-sidebar').on('click', function(e)
-        {
-            e.preventDefault();
-
-	        if ($(".is-table-row").hasClass("admin-left-panel-collapsed"))
-	        {
-		        $(".is-table-row").toggleClass("admin-left-panel-collapsed");
-	        }
-	        else
-	        {
-                  $(".is-table-row").toggleClass("admin-left-panel-collapsed");
-	        }
-
-
-            var tmp =  $(".is-table-row").hasClass("admin-left-panel-collapsed");
-
-            if(tmp === true)
-            {
-               var toggleStatus = 'closed';
-            }
-            else
-            {
-               var toggleStatus = 'open';
-            }
-
-            document.cookie = 'e107_adminLeftPanel = ' + toggleStatus +'; path=/; expires = 1; samesite=strict';
-
-
-        });
-
-
+ 
 
 		/* InfoPanel Comment approval and deletion */
 		$(document).on("click", "button[data-comment-action]", function(){
@@ -1251,6 +1219,3 @@ $(document).ready(function()
 				// Text-area AutoGrow
 	//	$("textarea.e-autoheight").elastic();
 });
-
-
-
