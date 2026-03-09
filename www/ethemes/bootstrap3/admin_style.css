@@ -1,4 +1,15 @@
 
+
+:root {
+  --panel-icon-border: #ccc;
+  --panel-icon-color: white;
+  --panel-icon-bg: #337ab7;
+  --panel-heading-bg: #eee;
+  --panel-heading-color: #000;
+}
+
+
+
 body						{ padding-top: 75px; font-size: 14px;  }
 body#admin-admin .popover   { position: fixed }
 
@@ -49,7 +60,7 @@ button, button:active                      { outline: 0; }
 .tab-content 				{ overflow: visible;  }
 
 /* .core-mainpanel-block 		{ text-align:center; width:140px; float:left; height:100px; display:block; padding:1px; margin: 0;  } */
-.core-mainpanel-block 		{ text-align:center; width:20%; float:left; height:80px; display:block; padding:1px 5px; margin: 0px 0px 10px 0px;  }
+.core-mainpanel-block 		{ text-align:center; width:15%; float:left; height:80px; display:block; padding:1px 5px; margin: 0px 0px 10px 0px;  }
 .core-mainpanel-link-text 	{ text-decoration: none; display:block; text-overflow: ellipsis; overflow: hidden; }
 /* a.core-mainpanel-link-icon	{ height:100px; width: 141px; padding-top:20px;  } */
 a.core-mainpanel-link-icon	{ height:80px; width: 100%; padding-top:15px;  }
@@ -118,7 +129,9 @@ cursor: help;
 		.e-image-radio label > input + div span { visibility: hidden; float:right; margin-right:10px; color:rgb(91, 192, 222)	}
 		.e-image-radio label > input:checked + div span { visibility: initial;	}
 
-
+.core-mainpanel-block small {
+  font-size: 14px;
+ 
 
 /* TODO - use col-xx-x markup where core-mainpanel-block occurs. ? */
 @media (max-width: 1700px){ 
@@ -128,7 +141,7 @@ cursor: help;
 	.core-mainpanel-block 		{ width:33.3333%; }
 }
 @media (max-width: 1200px){ 
-	.core-mainpanel-block 		{ width:50%; }
+	.core-mainpanel-block 		{ width:30%; }
 }
 @media (max-width: 992px){ 
 	.core-mainpanel-block 		{ width:20%; }

@@ -178,9 +178,9 @@ else {
 }
 
 //only plugins icons, personalization off - not possible
-$DASHBOARD_TEMPLATE['panels']['core-infopanel-icons-plugins'] =  array(
-	'method_name' => 'core_infopanel_icons', 'links' => 'plugin', 'style' => 'flexpanel', 'caption' => $caption . ' - Plugins'
-);
+// $DASHBOARD_TEMPLATE['panels']['core-infopanel-icons-plugins'] =  array(
+// 	'method_name' => 'core_infopanel_icons', 'links' => 'plugin', 'style' => 'flexpanel', 'caption' => $caption . ' - Plugins'
+// );
 
 /*
 //ALTERNATIVE - all admin icons in one panel
@@ -209,12 +209,22 @@ $DASHBOARD_TEMPLATE['panels']['addons-icons-chart'] =  array(
 
 /*  TEMP move it to e_dashboard */
 //depends on e_dashboard and method with name key
-$DASHBOARD_TEMPLATE['panels']['addons-single-icons-unnuke'] =  array(
-	'method_name' => 'addons_single_icons', 'key' => 'unnuke_panel', 'style' => 'flexpanel',
-	'caption' => 'UNNuke module'
+// $DASHBOARD_TEMPLATE['panels']['addons-single-icons-unnuke'] =  array(
+// 	'method_name' => 'addons_group_icons', 'key' => 'unnuke_panel', 'style' => 'flexpanel',
+// 	'caption' => 'UNNuke module'
+// );
+
+// $DASHBOARD_TEMPLATE['panels']['addons-single-icons-efiction'] =  array(
+// 	'method_name' => 'addons_group_icons', 'key' => 'efiction_panel', 'style' => 'flexpanel',
+// 	'caption' => 'Efiction module'
+// );
+
+$DASHBOARD_TEMPLATE['panels']['addons-single-icons-reality'] =  array(
+	'method_name' => 'addons_group_icons', 'key' => 'reality_panel', 'style' => 'flexpanel',
+	'caption' => 'Real Estate modules'
 );
 
-$DASHBOARD_TEMPLATE['panels']['addons-single-icons-efiction'] =  array(
-	'method_name' => 'addons_single_icons', 'key' => 'efiction_panel', 'style' => 'flexpanel',
-	'caption' => 'Efiction module'
-);
+// $DASHBOARD_TEMPLATE['panels']['addons-single-icons-timetracker'] =  array(
+// 	'method_name' => 'addons_group_icons', 'key' => 'timetracker_panel', 'style' => 'flexpanel',
+// 	'caption' => 'Timetracker  module'
+// );
