@@ -852,7 +852,7 @@ class theme_admin_online_tree_model extends e_tree_model
 class theme_admin_form_ui extends e_admin_form_ui
 {
 
-	private $approvedAdminThemes = array('bootstrap3', 'bootstrap5');
+	private $approvedAdminThemes = array('backend');
 
 
 	function price($curVal)
@@ -938,7 +938,7 @@ class theme_admin_form_ui extends e_admin_form_ui
 
 		$disabled = '';
 		$mainTitle = TPVLAN_10;
-
+ 
 		if(!e107::isCompatible($theme['compatibility'], 'theme'))
 		{
 			$disabled = 'disabled';
@@ -951,8 +951,10 @@ class theme_admin_form_ui extends e_admin_form_ui
 
 		if(in_array($theme['path'], $this->approvedAdminThemes))
 		{
+			$main_icon = '';
 			$admin_icon 	= ($pref['admintheme'] !== $theme['path'] ) ? "<button class='btn btn-default btn-secondary btn-small btn-sm btn-inverse' type='submit'   name='selectadmin[".$theme['path']."]' alt=\"".TPVLAN_32."\" title=\"".TPVLAN_32."\" >".$tp->toGlyph('fa-gears',array('size'=>'2x'))."</button>" : "<button class='btn btn-small btn-default btn-secondary btn-sm btn-inverse' type='button'>".$tp->toGlyph('fa-check',array('size'=>'2x'))."</button>";
 		}
+ 
 
 		$preview_icon 	= "<a class='e-modal btn btn-default btn-secondary btn-sm btn-small btn-inverse' title=' ".TPVLAN_70." ".$theme['name']."' data-modal-caption=\"".$theme['name']." ".$theme['version']."\" rel='external'  href='".$previewPath."'>".$tp->toGlyph('fa-search',array('size'=>'2x'))."</a>";
 
@@ -1064,4 +1066,3 @@ function headerjs() // needed for the checkboxes - how can we remove the need to
 	return e107::getAdminUI()->getHeader();
 }
 */
-

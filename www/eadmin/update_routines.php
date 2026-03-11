@@ -888,11 +888,11 @@ function update_706_to_800($type='')
 
 
 
-	if($pref['admintheme'] == 'bootstrap')//TODO Force an admin theme update or not?
+	if($pref['admintheme'] == 'bootstrap3')//TODO Force an admin theme update or not?
 	{
 		if ($just_check) return update_needed('pref: Admin theme upgrade to bootstrap3 ');
 
-		$pref['admintheme'] = 'bootstrap3';
+		$pref['admintheme'] = 'backend';
 		$pref['admincss']    = 'css/bootstrap-dark.min.css';
 
 		$do_save = true;

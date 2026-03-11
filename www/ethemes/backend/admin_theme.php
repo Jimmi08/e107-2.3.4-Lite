@@ -79,7 +79,7 @@ else
 $no_core_css = TRUE;
 
 
-class bootstrap3_admintheme implements e_theme_render
+class backend_admintheme implements e_theme_render
 {
 
 	public function init()

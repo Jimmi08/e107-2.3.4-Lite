@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e107Theme name="Backend Bootstrap 3" version="1.0" date="2013-12-25" compatibility="2.0">
+	<author name ="e107 Inc" email="e107inc@something.com" url="https://e107.org" />
+	<summary>Admin Bootstrap3 e107 theme</summary>
+	<description>Original bootstrap3 theme customized by Alex</description>
+	<category>admin</category>
+	<keywords>
+		<word>bootstrap</word>
+		<word>clean</word>
+	</keywords>
+	<screenshots>
+		<image>preview_backend.png</image>
+	</screenshots>
+	<libraries>
+		<library name="bootstrap" version="3" scope="front,admin,wysiwyg"/>
+		<library name="fontawesome" version="5"  scope="front,admin,wysiwyg"/>
+		<library name="bootstrap.editable" scope="admin"/>
+	</libraries>
+	<stylesheets>
+		<css file="style.css" name="Default" scope="front" />
+		<css file="css/admin-exas-core.css" name="Core Business Light" description="A high-contrast light skin" thumbnail='images/admin-exas-core.webp' scope='admin' exclude='bootstrap'/>
+	</stylesheets>
+	<themePrefs>
+	</themePrefs>
+</e107Theme>
