@@ -27,9 +27,43 @@ class theme implements e_theme_render
         e107::meta('viewport',"width=device-width, initial-scale=1.0");
      
         e107::js("footer-inline", 	"$('.e-tip').tooltip({container: 'body'});"); // activate bootstrap tooltips.
+
+
+		$this->getInlineCodes();
  
     }
 
+
+	public function getInlineCodes()
+	{
+		$panel_heading_bg = e107::pref('theme', 'panel-heading-bg', "#ddd");
+var_dump($panel_heading_bg);
+		$inlinecss = ":root {
+			--panel-icon-border: #ccc;
+			--panel-icon-color: white;
+			--panel-icon-bg: #337ab7;
+			--panel-heading-bg: {$panel_heading_bg};
+			--panel-heading-color: #000;
+			}
+		";
+
+		$inlinejs = e107::pref('theme', 'inlinejs');
+		e107::js("footer-inline", $inlinejs);
+	
+		$inlinecss = e107::pref('theme', 'custom_css', FALSE);
+
+		if ($inlinecss)
+		{
+			e107::css("inline", $inlinecss);
+		}
+
+		//dashboard colors 
+
+		if ($inlinejs)
+		{
+			e107::js("footer-inline", $inlinejs);
+		}
+	}
 
 	/**
 	 * Override how THEME_STYLE is loaded. Duplicates will be automatically removed.
@@ -38,11 +72,8 @@ class theme implements e_theme_render
 	function css()
 	{
 
-
-		e107::css('theme', 'style.css'); // always load style.css last.
-		e107::css('theme', THEME_STYLE);
-
-		e107::css('inline', '#carousel-hero.carousel {   margin-bottom: 80px; }');
+		e107::css('backend', 'style.css'); // always load style.css last.
+		 
 	}
 
     /**

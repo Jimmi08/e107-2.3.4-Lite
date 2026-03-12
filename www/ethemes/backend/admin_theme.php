@@ -17,13 +17,47 @@ if(!defined('e107_INIT'))
 }
 
 //define("SEP", " <span class='fa fa-play e-breadcrumb'></span> ");
+// JM Note:  in admin area e_theme_render is not working as it is expected while using frontend theme
+// JM Note:  core pref admin UI works differently than for plugin pref - ignoring data parameter, ignoring before pref save method etc, always saving regardless anything
+
 define("SEP", " <span class='fa fa-angle-double-right e-breadcrumb'></span> ");
 
+$themePref = e107::getThemeConfig('backend', true)->getPref();
+ 
+$panelHeadingBg = varset($themePref['panel-heading-bg'], "#DDD");
+$panelHeadingColor = varset($themePref['panel-heading-color'], "#222");
+$panelIconBorder = varset($themePref['panel-icon-border'], "#ccc");
+$panelIconColor = varset($themePref['panel-icon-color'] , "#FFF");
+$panelIconBg = varset($themePref['panel-icon-bg'], "#022643");
 
+$inlinecss = ":root {
+			--panel-icon-border: {$panelIconBorder};
+			--panel-icon-color: {$panelIconColor};
+			--panel-icon-bg: {$panelIconBg};
+			--panel-heading-bg: {$panelHeadingBg};
+			--panel-heading-color: {$panelHeadingColor};
+			}
+		";
+ 
+e107::css("inline", $inlinecss);
+
+$inlinecss = varset($themePref['custom_css'], FALSE);
+if ($inlinecss)
+{
+	e107::css("inline", $inlinecss);
+}
+ 
 $adminStyle = e107::pref('core', 'admincss', 'css/bootstrap-dark.min.css');
 e107::css('theme', $adminStyle);
 e107::css('theme', 'admin_style.css');
 e107::css('theme', 'ie_all.css', null, 'all', "<!--[if IE]>", "<![endif]-->");
+
+
+
+e107::css('theme', 'colorpicker/css/bootstrap-colorpicker.min.css');
+e107::js('theme',  'colorpicker/js/bootstrap-colorpicker.min.js', 'jquery');
+e107::js('theme',  'colorpicker/js/init.js', 'jquery');
+
 
 e107::css('inline', "
 .mce-menubar .mce-caret             { border-top-color: #C6C6C6!important  }
@@ -46,6 +80,10 @@ div#media-manager div.mce-window-head  { background-color: #373737; !important }
 div#media-manager div.mce-title        { color:white; }
 /* div#media-manager, html                { color: silver; background-color: #2F2F2F; !important} */
 ");
+
+
+
+
 
 /*
 $drop = "
@@ -77,16 +115,24 @@ else
 
 // $register_sc[]='FS_ADMIN_ALT_NAV';
 $no_core_css = TRUE;
-
+ 
 
 class backend_admintheme implements e_theme_render
 {
 
+	public function __construct()
+	{
+ 
+	}
+
 	public function init()
 	{
-
-
+		//this is not working for admin theme
 	}
+
+
+ 
+ 
 
 
 	public function tablestyle($caption, $text, $mode='', $data=array())

@@ -7,16 +7,13 @@
 +----------------------------------------------------------------------------+
 */
 
-define("LAN_THEMEPREF_00", "Branding:");
-define("LAN_THEMEPREF_01", "Navbar Alignment:");
-define("LAN_THEMEPREF_02", "Signup/Login Placement:");
-define("LAN_THEMEPREF_03", "Bootswatch Styles:");
-define("LAN_THEMEPREF_04", "Site Name");
-define("LAN_THEMEPREF_05", "Logo");
-define("LAN_THEMEPREF_06", "Logo &amp; Site Name");
-define("LAN_THEMEPREF_07", "left");
-define("LAN_THEMEPREF_08", "right");
-define("LAN_THEMEPREF_09", "top");
-define("LAN_THEMEPREF_10", "bottom");
+define("LAN_JM_THEMEOPTIONS", "Theme Options");
 
-?>
+define("LAN_JM_THEMEOPTIONS_01", "Theme Options");
+define("LAN_JM_THEMEOPTIONS_01_HELP", " ");
+define("LAN_JM_THEMEOPTIONS_01_02", " ");
+
+define("LAN_JM_THEMEOPTIONS_02", "Custom CSS");
+define("LAN_JM_THEMEOPTIONS_02_01", "CSS Editor");
+define("LAN_JM_THEMEOPTIONS_02_01_HELP", '<p>Please add all your custom CSS here for simplier testing css changes. If you modify theme css directly, your changes will be lost in an upgrade.</p><p>Your custom CSS will be loaded after the theme\'s stylesheets, which means that your rules will take precedence.</p><p>Just add your CSS here for what you want to change, you don\'t need to copy all the theme\'s style.css content.</p>
+<p>Be aware that you can add file with name custom_style.css and put your css changes there. This file is loaded as last file from theme files and it is not part of upgrade pack, so it will not be overriden with update.');
