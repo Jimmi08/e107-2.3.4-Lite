@@ -2901,7 +2901,8 @@ class themeHandler
 					$text .= "</div>
 			</div>
 			
-			 <div class='tab-pane' id='core-thememanager-help'>".$this->renderThemeHelp()."</div>
+			
+			 
 			 
 			 <div class='tab-pane' id='core-thememanager-customconfig'>
 			 	<table class='table adminform'>
@@ -2934,7 +2935,12 @@ class themeHandler
 				$text .= "<input type='hidden' name='curTheme' value='".$theme['path']."' />";
 		
 				$text .= "</div>
+
+
 			</div>
+
+
+			 <div class='tab-pane' id='core-thememanager-help'>" . $this->renderThemeHelp() . "</div>
         </div>
         </div>
 		\n";

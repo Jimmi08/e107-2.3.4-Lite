@@ -8,43 +8,70 @@ e107::lan('theme', 'admin',true);
 class theme_config implements e_theme_config
 {
 
-	function config($type='front')
+	var $sitetheme;
+	var $helpLinks = array();
+
+	public function __construct()
+	{
+	 
+	}
+
+	function config($type='tu')
 	{
 
-		$brandingOpts = array('sitename'=>LAN_THEMEPREF_04, 'logo' => LAN_THEMEPREF_05, 'sitenamelogo'=>LAN_THEMEPREF_06);
- 
-
-		$previewLink = " <a class='btn btn-default btn-secondary e-modal' data-modal-caption=\"Use the 'Themes' menu to view the selection.\" href='http://bootswatch.com/default/'>".LAN_PREVIEW."</a>";
-
-		$fields = array(
-			'branding'          => array('title'=>LAN_THEMEPREF_00, 'type'=>'dropdown', 'writeParms'=>array('optArray'=> $brandingOpts)),
-			'nav_alignment'     => array('title'=>LAN_THEMEPREF_01, 'type'=>'dropdown', 'writeParms'=>array('optArray'=> array('left'=> LAN_THEMEPREF_07,'right'=> LAN_THEMEPREF_08))),
-			'usernav_placement' => array('title'=>LAN_THEMEPREF_02, 'type'=>'dropdown', 'writeParms'=>array('optArray'=> array('top'=> LAN_THEMEPREF_09, 'bottom'=> LAN_THEMEPREF_10))),
-			 
-		);
-
-		return $fields;
+	 
 
 	}
 
 
-	function help()
+	public function help()
 	{
-	 	return '';
+
+		$themeoptions['custom_css'] = e_THEME . THEME . "themeoptions/admin_" . "custom_css" . ".php";
+
+		$buttons = e107::getNav()->renderAdminButton($themeoptions['custom_css'], "<b>" . LAN_JM_THEMEOPTIONS_01 . "</b><br>", LAN_JM_THEMEOPTIONS_01_HELP, "P", '<i class="S32 e-themes-32"></i>', "div");
+
+		//$ns->setStyle('flexpanel');
+		$mainPanel = '<div class="panel panel-default" >
+					  <div class="panel-heading ui-sortable-handle">
+					    <h3 class="panel-title">' . LAN_CONFIGURE . '</h3>
+					  </div>
+					  <div class="panel-body">
+					  ';
+
+		$mainPanel .= " <style>a.core-mainpanel-link-icon { height: 100px; }</style>";
+		$mainPanel .= " ";
+		$mainPanel .= $buttons;
+		$mainPanel .= "</div>";
+
+		return $mainPanel;
+ 
 	}
 }
 
-/*
-// Custom Methods
 class theme_config_form extends e_form
 {
 
-	function custom_method($value,$mode,$parms) // named the same as $fields key.(eg. 'branding') Used when type = 'method'
+	function extended()
 	{
 
-		return $this->text('custom_method', $value);
+		$themeoptions['custom_css'] = e_THEME . THEME . "themeoptions/admin_" . "custom_css" . ".php";
 
+		$buttons = e107::getNav()->renderAdminButton($themeoptions['custom_css'], "<b>" . LAN_JM_THEMEOPTIONS_01 . "</b><br>", LAN_JM_THEMEOPTIONS_01_HELP, "P", '<i class="S32 e-themes-32"></i>', "div");
+
+		//$ns->setStyle('flexpanel');
+		$mainPanel = '<div class="panel panel-default" >
+					  <div class="panel-heading ui-sortable-handle">
+					    <h3 class="panel-title">' . LAN_CONFIGURE . '</h3>
+					  </div>
+					  <div class="panel-body">
+					  ';
+
+		$mainPanel .= " <style>a.core-mainpanel-link-icon { height: 100px; }</style>";
+		$mainPanel .= " ";
+		$mainPanel .= $buttons;
+		$mainPanel .= "</div>";
+
+		return $mainPanel;
 	}
-
 }
-*/
