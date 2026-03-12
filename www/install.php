@@ -308,9 +308,22 @@ e107::getSession(); // starts session, creates default namespace
 
 function include_lan($path, $force = false)
 {
-	unset($force);
-	return include($path);
+	$result = include($path);
+
+	if(is_array($result))
+	{
+		foreach($result as $key => $value)
+		{
+			if(!defined($key))
+			{
+				define($key, $value);
+			}
+		}
+
+	}
+
 }
+
 //obsolete $e107->e107_dirs['INSTALLER'] = "{$installer_folder_name}/";
 
 if (isset($_GET['create_tables']))
@@ -2397,7 +2410,7 @@ function create_tables_unattended()
 	$einstall->previous_steps['generate_content'] 	= isset($_GET['gen']) ? (int) $_GET['gen'] : 1;
 	$einstall->previous_steps['install_plugins'] 	= isset($_GET['plugins']) ? (int) $_GET['plugins'] : 1;
 	$einstall->previous_steps['prefs']['sitename'] 	= isset($_GET['sitename']) ? urldecode($_GET['sitename']) : LANINS_113;
-	$einstall->previous_steps['prefs']['sitetheme'] = isset($_GET['theme']) ? urldecode($_GET['theme']) : 'bootstrap3';
+	$einstall->previous_steps['prefs']['sitetheme'] = isset($_GET['theme']) ? urldecode($_GET['theme']) : 'backend';
 
 	//@include_once("./{$HANDLERS_DIRECTORY}e107_class.php");
 	//$e107_paths = compact('ADMIN_DIRECTORY', 'FILES_DIRECTORY', 'IMAGES_DIRECTORY', 'THEMES_DIRECTORY', 'PLUGINS_DIRECTORY', 'HANDLERS_DIRECTORY', 'LANGUAGES_DIRECTORY', 'HELP_DIRECTORY', 'CACHE_DIRECTORY', 'DOWNLOADS_DIRECTORY', 'UPLOADS_DIRECTORY');
@@ -2471,12 +2484,12 @@ function template_data()
 		<meta charset="utf-8">
 		<title>{installation_heading} :: {stage_pre}{stage_num} - {stage_title}</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link href="' . e_THEME . 'bootstrap3/css/bootstrap-dark.min.css" rel="stylesheet">
-		<link href="' . e_THEME . 'bootstrap3/admin_style.css" rel="stylesheet">
+		<link href="' . e_THEME . 'backend/css/admin-exas-core.css" rel="stylesheet">
+		<link href="' . e_THEME . 'backend/admin_style.css" rel="stylesheet">
 		<link rel="icon" href="favicon.ico" type="image/x-icon" />
 		<style>
 		
-		body 					{  padding-top: 40px; padding-bottom: 40px; background-color: #181818; }
+		body 					{  padding-top: 40px; padding-bottom: 40px; background-color: #EEE; }
 		.container-narrow 		{ margin: 0 auto; max-width: 800px; }
 		.container-narrow > hr 	{ margin: 30px 0; }
 		.nav 					{ margin-top:35px; }
