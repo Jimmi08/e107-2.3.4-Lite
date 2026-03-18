@@ -3537,6 +3537,9 @@ class e_parse
 	{
 
 		$ret = '';
+		//20260318 issue with contact prefs
+		if($text == "") return '';
+ 
 		foreach (str_split($text) as $letter)
 		{
 			switch (mt_rand(1, 3))
