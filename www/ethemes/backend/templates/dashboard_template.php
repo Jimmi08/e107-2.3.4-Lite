@@ -178,9 +178,9 @@ else {
 }
 
 //only plugins icons, personalization off - not possible
-// $DASHBOARD_TEMPLATE['panels']['core-infopanel-icons-plugins'] =  array(
-// 	'method_name' => 'core_infopanel_icons', 'links' => 'plugin', 'style' => 'flexpanel', 'caption' => $caption . ' - Plugins'
-// );
+$DASHBOARD_TEMPLATE['panels']['core-infopanel-icons-plugins'] =  array(
+	'method_name' => 'core_infopanel_icons', 'links' => 'plugin', 'style' => 'flexpanel', 'caption' => $caption . ' - Plugins'
+);
 
 /*
 //ALTERNATIVE - all admin icons in one panel
@@ -199,32 +199,8 @@ $DASHBOARD_TEMPLATE['panels']['plug-infopanel-comments'] = array('method_name' =
 
 /* core version renders only tabs let on plugin how they want the dashboard to look */
 $DASHBOARD_TEMPLATE['panels']['addons-multi-tabs-chart'] = array('method_name' => 'addons_chart_tabs',  'multi' => true);
-
-/* render icons from all plugins with method chart - just example, chart is used for tabs in core, in real use different key
-$DASHBOARD_TEMPLATE['panels']['addons-icons-chart'] =  array(
-	'method_name' => 'addons_group_icons', 'key' => 'chart', 'style' => 'flexpanel',
-	'caption' => 'Chart groups'
+ 
+$DASHBOARD_TEMPLATE['panels']['addons-single-icons-modules'] =  array(
+	'method_name' => 'addons_group_icons', 'key' => 'modules_panel', 'style' => 'flexpanel',
+	'caption' => SITENAME . " modules"
 );
-*/
-
-/*  TEMP move it to e_dashboard */
-//depends on e_dashboard and method with name key
-// $DASHBOARD_TEMPLATE['panels']['addons-single-icons-unnuke'] =  array(
-// 	'method_name' => 'addons_group_icons', 'key' => 'unnuke_panel', 'style' => 'flexpanel',
-// 	'caption' => 'UNNuke module'
-// );
-
-// $DASHBOARD_TEMPLATE['panels']['addons-single-icons-efiction'] =  array(
-// 	'method_name' => 'addons_group_icons', 'key' => 'efiction_panel', 'style' => 'flexpanel',
-// 	'caption' => 'Efiction module'
-// );
-
-$DASHBOARD_TEMPLATE['panels']['addons-single-icons-reality'] =  array(
-	'method_name' => 'addons_group_icons', 'key' => 'reality_panel', 'style' => 'flexpanel',
-	'caption' => 'Real Estate modules'
-);
-
-// $DASHBOARD_TEMPLATE['panels']['addons-single-icons-timetracker'] =  array(
-// 	'method_name' => 'addons_group_icons', 'key' => 'timetracker_panel', 'style' => 'flexpanel',
-// 	'caption' => 'Timetracker  module'
-// );
