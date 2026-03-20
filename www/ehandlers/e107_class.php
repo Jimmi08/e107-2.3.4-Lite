@@ -418,7 +418,7 @@ class e107
 	//		self::plugLan($plug_name, 'front'); // English_front.php
 			self::plugLan($plug_name, null); // English.php
 			self::plugLan($plug_name, 'global', true); // English/English_global.php
-			self::plugLan($plug_name, 'global'); // English_global.php
+			//self::plugLan($plug_name, 'global'); // English_global.php One rule
 		}
 	}
 

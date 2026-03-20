@@ -590,11 +590,8 @@ if(!isset($_E107['no_lan']))
 	{
 		foreach($pref['lan_global_list'] as $path)
 		{
-			if(e107::plugLan($path, 'global', true) === false)
-			{
-				e107::plugLan($path, 'global');
-			}
-
+			// ONE RULE FOR GLOBAL LANS - ALWAYS FLAT, fix translations, don't do exceptions
+			e107::plugLan($path, 'global', true);
 		}
 	}
 }
