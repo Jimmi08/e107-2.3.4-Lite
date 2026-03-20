@@ -163,6 +163,14 @@ $ADMIN_ICONS_TEMPLATE['ADMIN_FALSE_ICON']           = "<span class='text-danger 
 
 $ADMIN_ICONS_TEMPLATE['E_24_PLUGIN']                = "<i class='S24 e-plugins-24'></i> ";
 
+
+$ADMIN_ICONS_TEMPLATE['E_16_NAV_MAIN']              = "<i class='S16 e-main-16'></i> ";
+$ADMIN_ICONS_TEMPLATE['E_16_NAV_DOCS']              = "<i class='S16 e-docs-16'></i> ";
+$ADMIN_ICONS_TEMPLATE['E_16_NAV_LEAV']              = "<i class='S16 e-leave-16'></i> ";
+$ADMIN_ICONS_TEMPLATE['E_16_NAV_LGOT']              = "<i class='S16 e-logout-16'></i> ";
+$ADMIN_ICONS_TEMPLATE['E_16_NAV_ARROW']             = "<i class='S16 e-arrow-16'></i> ";
+$ADMIN_ICONS_TEMPLATE['E_16_NAV_ARROW_OVER']        = "<i class='S16 e-arrow_over-16'></i> ";
+
 $ADMIN_ICONS_TEMPLATE['E_32_NAV_MAIN']              = "<i class='S32 e-main-32'></i> ";
 $ADMIN_ICONS_TEMPLATE['E_32_NAV_DOCS']              = "<i class='S32 e-docs-32'></i> ";
 $ADMIN_ICONS_TEMPLATE['E_32_NAV_LEAV']              = "<i class='S32 e-leave-32'></i> ";
@@ -219,14 +227,7 @@ $ADMIN_ICONS_TEMPLATE['E_16_CAT_MANAGE'] = e_IMAGE.'admin_images/manage_16.png')
 $ADMIN_ICONS_TEMPLATE['E_16_CAT_MISC'] = e_IMAGE.'admin_images/settings_16.png');
 $ADMIN_ICONS_TEMPLATE['E_16_CAT_ABOUT'] = e_IMAGE.'admin_images/info_16.png');
 
-// Small Nav Images
 
-$ADMIN_ICONS_TEMPLATE['E_16_NAV_MAIN'] = e_IMAGE.'admin_images/main_16.png');
-$ADMIN_ICONS_TEMPLATE['E_16_NAV_DOCS'] = e_IMAGE.'admin_images/docs_16.png');
-$ADMIN_ICONS_TEMPLATE['E_16_NAV_LEAV'] = e_IMAGE.'admin_images/leave_16.png');
-$ADMIN_ICONS_TEMPLATE['E_16_NAV_LGOT'] = e_IMAGE.'admin_images/logout_16.png');
-$ADMIN_ICONS_TEMPLATE['E_16_NAV_ARROW'] = e_IMAGE.'admin_images/arrow_16.png');
-$ADMIN_ICONS_TEMPLATE['E_16_NAV_ARROW_OVER'] = e_IMAGE.'admin_images/arrow_over_16.png');
 
 // Large Nav Images
 
