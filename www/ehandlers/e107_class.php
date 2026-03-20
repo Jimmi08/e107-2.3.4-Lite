@@ -3792,7 +3792,7 @@ class e107
 		// Use basename of the path as a cache key (e.g., "Spanish_global.php")
 		$file_key = basename($path);
 
-		static $english_terms = []; // Cache English terms by file key
+		$english_terms = []; // Cache English terms by file key
 
 		// Define constants from the current language’s array first
 		if(!empty($terms) && is_array($terms))
