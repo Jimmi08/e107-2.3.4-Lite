@@ -862,10 +862,10 @@ class lancheck
 	 */
 	public function getOnlineLanguagePacks()
 	{
-		// $xml = e107::getXml();
+		$xml = e107::getXml();
 
-		// $feed = 'https://e107.org/languagepacks.xml';
-		// $version = e_VERSION;
+		$feed = 'https://e107.org/languagepacks.xml';
+		$version = e_VERSION;
 
 		// if(!empty($version))
 		// {
@@ -875,67 +875,67 @@ class lancheck
 		// 	$feed .= "?ver=". preg_replace('/[^\d\.]/','', $ver);
 		// }
 
-		// e107::getDebug()->log("Language Pack Feed: ".$feed);
+		e107::getDebug()->log("Language Pack Feed: ".$feed);
 
-		// $languages = array();
+		$languages = array();
 
-		// if($rawData = $xml -> loadXMLfile($feed, true))
-		// {
+		if($rawData = $xml -> loadXMLfile($feed, true))
+		{
 
-		// 	if(empty($rawData['language']))
-		// 	{
-		// 		return false;
-		// 	}
+			if(empty($rawData['language']))
+			{
+				return false;
+			}
 
-		// 	foreach($rawData['language'] as $key => $att)
-		// 	{
-		// 		// issue #3059 in case array @attributes is in $att
-		// 		if (is_int($key) && is_array($att) && array_key_exists('@attributes', $att))
-		// 		{
-		// 			$att = $att['@attributes'];
-		// 		}
-		// 		// issue #3059 Language list didn't load
-		// 		elseif ($key != '@attributes')
-		// 		{
-		// 			continue;
-		// 		}
+			foreach($rawData['language'] as $key => $att)
+			{
+				// issue #3059 in case array @attributes is in $att
+				if (is_int($key) && is_array($att) && array_key_exists('@attributes', $att))
+				{
+					$att = $att['@attributes'];
+				}
+				// issue #3059 Language list didn't load
+				elseif ($key != '@attributes')
+				{
+					continue;
+				}
 
-		// 		$id = $att['name'];
+				$id = $att['name'];
 
-		// 		// fix github double url bug...
-		// 		if (stripos($att['url'], 'https://github.comhttps://github.com') !== false)
-		// 		{
-		// 			$att['url'] = str_ireplace('https://github.comhttps://github.com', 'https://github.com', $att['url']);
-		// 		}
-		// 		if (stripos($att['infourl'], 'https://github.comhttps://github.com') !== false)
-		// 		{
-		// 			$att['infourl'] = str_ireplace('https://github.comhttps://github.com', 'https://github.com', $att['infourl']);
-		// 		}
+				// fix github double url bug...
+				if (stripos($att['url'], 'https://github.comhttps://github.com') !== false)
+				{
+					$att['url'] = str_ireplace('https://github.comhttps://github.com', 'https://github.com', $att['url']);
+				}
+				if (stripos($att['infourl'], 'https://github.comhttps://github.com') !== false)
+				{
+					$att['infourl'] = str_ireplace('https://github.comhttps://github.com', 'https://github.com', $att['infourl']);
+				}
 
-		// 		$languages[$id] = array(
-		// 			'name'          => $att['name'],
-		// 			'author'        => varset($att['author']),
-		// 			'infoURL'       => $att['infourl'],
-		// 			'tag'           => $att['tag'],
-		// 		//	'folder'        => $att['folder'],
-		// 			'version'       => $att['version'],
-		// 			'date'          => $att['date'],
-		// 			'compatibility' => $att['compatibility'],
-		// 			'url'           => $att['url'],
-		// 			'type'          => 'online'
+				$languages[$id] = array(
+					'name'          => $att['name'],
+					'author'        => varset($att['author']),
+					'infoURL'       => $att['infourl'],
+					'tag'           => $att['tag'],
+				//	'folder'        => $att['folder'],
+					'version'       => $att['version'],
+					'date'          => $att['date'],
+					'compatibility' => $att['compatibility'],
+					'url'           => $att['url'],
+					'type'          => 'online'
 
-		// 		);
-		// 	}
-
-
-		// }
-		// else
-		// {
-		// 	e107::getDebug()->log("Language Pack Feed Failed: ".$xml->getLastErrorMessage());
-		// }
+				);
+			}
 
 
-		// return $languages;
+		}
+		else
+		{
+			e107::getDebug()->log("Language Pack Feed Failed: ".$xml->getLastErrorMessage());
+		}
+
+
+		return $languages;
 	}
 
 

@@ -482,14 +482,16 @@ class e_file
 			if(class_exists('finfo')) // Best Mime detection method.
 			{
 				$fin = new finfo(FILEINFO_MIME);
-				list($mime, $other) = explode(";", $fin->file($path_to_file));
+				$result = $fin->file($path_to_file);
+                $parts = explode(";", $result);
+
+				$mime = trim($parts[0]);
 
 				if(!empty($mime))
 				{
 					$finfo['mime'] = $mime;
 				}
 
-				unset($other);
 
 			}
 
@@ -515,7 +517,7 @@ class e_file
 		}
 
 
-		if($imgcheck && ($tmp = getimagesize($path_to_file)))
+		if($imgcheck && is_file($path_to_file) && ($tmp = getimagesize($path_to_file)))
 		{
 			$finfo['img-width'] = $tmp[0];
 			$finfo['img-height'] = $tmp[1];
@@ -1864,7 +1866,7 @@ class e_file
 				$localfile = str_replace(array('https://github.com/e107translations/', '/archive/v'), array('', '-'), $url); //remove dirs.
 				$remotefile = $url;
 				$excludes = array();
-				$excludeMatch = array('alt_auth', 'tagwords', 'faqs');
+				$excludeMatch = array('e107_themes/', 'e107_plugins/');
 
 		}
 
@@ -1914,9 +1916,9 @@ class e_file
 		$skipped = array();
 
 
-		foreach($unarc as $k => $v)
+		foreach ($unarc as $k => $v)
 		{
-			if(
+			if (
 				$this->matchFound($v['stored_filename'], $excludeMatch) ||
 				in_array($v['stored_filename'], $excludes)
 			)
@@ -1928,21 +1930,36 @@ class e_file
 			$oldPath = $v['filename'];
 			$newPath = str_replace($srch, $repl, $v['stored_filename']);
 
-			if($v['folder'] == 1 && is_dir($newPath))
+			if ($v['folder'] == 1)
 			{
-				// $skipped[] =  $newPath. " (already exists)";
+				if (is_dir($newPath))
+				{
+					continue;
+				}
+				if (!is_dir(dirname($newPath)))
+				{
+					@mkdir(dirname($newPath), 0755, true);
+				}
+				$success[] = $newPath;   // just mark folder as done
 				continue;
 			}
-			@mkdir(dirname($newPath), 0755, true);
-			if(!rename($oldPath, $newPath))
+
+			// File only
+			$dir = dirname($newPath);
+			if (!is_dir($dir) && !@mkdir($dir, 0755, true))
 			{
-				$error[] = $newPath;
+				// optional: log failure if needed
+			}
+
+			if (@copy($oldPath, $newPath))
+			{
+				@unlink($oldPath);
+				$success[] = $newPath;
 			}
 			else
 			{
-				$success[] = $newPath;
+				$error[] = $newPath;
 			}
-
 		}
 
 		return array('success' => $success, 'error' => $error, 'skipped' => $skipped);
@@ -2587,7 +2604,7 @@ class e_file
 
 			if(($class === null && check_class($v['name'])) || (int) $class === (int) $v['name'])
 			{
-				$current_perms[$v['name']] = array('type' => $v['type'], 'maxupload' => $v['maxupload']);
+			//	$current_perms[$v['name']] = array('type' => $v['type'], 'maxupload' => $v['maxupload']);
 				$a_filetypes = explode(',', $v['type']);
 				foreach($a_filetypes as $ftype)
 				{
