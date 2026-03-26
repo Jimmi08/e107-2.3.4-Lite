@@ -61,8 +61,10 @@ class redirection
 	 */
 	function __construct()
 	{
-		$this->self_exceptions = array(e_SIGNUP, SITEURL.'fpw.php', e_LOGIN, SITEURL.'membersonly.php');
-		$this->page_exceptions = array('e_ajax.php', 'e_js.php', 'e_jslib.php', 'sitedown.php',e_LOGIN, 'secimg.php');
+		
+		//e_LOGIN is already in self_exceptions
+		//$this->page_exceptions = array('e_ajax.php', 'e_js.php', 'e_jslib.php', 'sitedown.php',e_LOGIN, 'secimg.php');
+		$this->page_exceptions = array('e_ajax.php', 'e_js.php', 'e_jslib.php', 'sitedown.php',  'secimg.php');
 		$this->query_exceptions = array('logout');
 		$this->staticDomains    = defset('e_HTTP_STATIC');
 		$this->domain           = defset('e_DOMAIN');
@@ -70,6 +72,17 @@ class redirection
 		$this->self             = $this->getSelf(true);
 
 		// Remove from self_exceptions:  SITEURL, SITEURL.'index.php', // allows a custom frontpage to be viewed while logged out and membersonly active.
+	}
+
+	 /**
+	 * @return 
+	 */
+	function setSelfExceptions()
+	{
+		$this->self_exceptions = array(e_SIGNUP, SITEURL.'fpw.php', e_LOGIN, SITEURL.'membersonly.php');
+
+		return $this;
+ 
 	}
 
 
@@ -90,6 +103,9 @@ class redirection
 	 */
 	function setPreviousUrl($url = null, $forceNoSef = false, $forceCookie = false)
 	{
+
+		$this->setSelfExceptions();
+		
 		if(!$url)
 		{
 			// e_SELF, defset('e_PAGE') and e_QUERY not set early enough when in e_SINGLE_ENTRY mod
