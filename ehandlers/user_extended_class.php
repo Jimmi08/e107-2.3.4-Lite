@@ -1927,6 +1927,11 @@ class e107_user_extended
 	// Custom function to generate date select fields
 function custom_date_select($name, $curval = '', $opts = array()) {
     $output = '';
+	$required = ' required ';
+
+	if(defined('e_PAGE') && e_PAGE == "users_extended.php") {
+		$required =  "";
+	}
     $format = isset($opts['format']) ? $opts['format'] : 'yyyy-mm-dd';
 
     // Split current value if set
@@ -1937,12 +1942,14 @@ function custom_date_select($name, $curval = '', $opts = array()) {
         $selected_day = $matches[3];
     }
 
+
+
     // Sanitize name for ID (replace brackets with hyphens)
     $id_base = str_replace(['[', ']'], ['-', ''], $name);
 
     // Days (1-31)
     $days = range(1, 31);
-    $output .= '<div class="d-flex "><div class="col order-1 pe-1"><select required name="' . $name . '[day]" class="form-select me-2" id="' . $id_base . '-day">';
+    $output .= '<div class="d-flex "><div class="col order-1 pe-1"><select '. $required. ' name="' . $name . '[day]" class="form-select me-2" id="' . $id_base . '-day">';
     $output .= '<option value="" selected hidden>DD</option>';
     foreach ($days as $day) {
         $output .= '<option value="' . sprintf('%02d', $day) . '" ' . ($selected_day == sprintf('%02d', $day) ? 'selected' : '') . '>' . sprintf('%02d', $day) . '</option>';
@@ -1951,7 +1958,7 @@ function custom_date_select($name, $curval = '', $opts = array()) {
 
     // Months (01-12)
     $months = range(1, 12);
-    $output .= '<div class="col order-2 pe-1"><select required name="' . $name . '[month]" class="form-select me-2" id="' . $id_base . '-month">';
+    $output .= '<div class="col order-2 pe-1"><select '. $required. ' name="' . $name . '[month]" class="form-select me-2" id="' . $id_base . '-month">';
     $output .= '<option value="" selected hidden>MM</option>';
     foreach ($months as $month) {
         $output .= '<option value="' . sprintf('%02d', $month) . '" ' . ($selected_month == sprintf('%02d', $month) ? 'selected' : '') . '>' . sprintf('%02d', $month) . '</option>';
@@ -1963,7 +1970,7 @@ function custom_date_select($name, $curval = '', $opts = array()) {
 	$end_year = date('Y') + 1 - 18;
 	$start_year = $end_year - 80 ;
     $years = range($end_year, $start_year);
-    $output .= '<div class="col order-3 "><select requiredname="' . $name . '[year]" class="form-select me-2" id="' . $id_base . '-year">';
+    $output .= '<div class="col order-3 "><select '. $required. ' name="' . $name . '[year]" class="form-select me-2" id="' . $id_base . '-year">';
     $output .= '<option value="" selected hidden>YYYY</option>';
     foreach ($years as $year) {
         $output .= '<option value="' . $year . '" ' . ($selected_year == $year ? 'selected' : '') . '>' . $year . '</option>';
