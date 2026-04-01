@@ -1433,7 +1433,7 @@ class e107_user_extended
 
 					if($fname == "ue[user_birthday]") {
 						$opts = array('format' => 'yyyy-mm-dd');
-						return $this->custom_date_select($fname, $curval, $opts);
+						return $this->custom_date_select($fname, $curval, $opts, $required);
 					}
 
 					if (THEME_LEGACY === true)
@@ -1925,13 +1925,10 @@ class e107_user_extended
 
 
 	// Custom function to generate date select fields
-function custom_date_select($name, $curval = '', $opts = array()) {
+function custom_date_select($name, $curval = '', $opts = array(), $required = "") {
     $output = '';
-	$required = ' required ';
+ 
 
-	if(defined('e_PAGE') && e_PAGE == "users_extended.php") {
-		$required =  "";
-	}
     $format = isset($opts['format']) ? $opts['format'] : 'yyyy-mm-dd';
 
     // Split current value if set
@@ -1949,10 +1946,16 @@ function custom_date_select($name, $curval = '', $opts = array()) {
 
     // Days (1-31)
     $days = range(1, 31);
+	
+	foreach ($days as $key => $day) {
+		$tmp[$key] = sprintf('%02d', $day);
+	}
+	$days = $tmp;
+ 
     $output .= '<div class="d-flex "><div class="col order-1 pe-1"><select '. $required. ' name="' . $name . '[day]" class="form-select me-2" id="' . $id_base . '-day">';
     $output .= '<option value="" selected hidden>DD</option>';
     foreach ($days as $day) {
-        $output .= '<option value="' . sprintf('%02d', $day) . '" ' . ($selected_day == sprintf('%02d', $day) ? 'selected' : '') . '>' . sprintf('%02d', $day) . '</option>';
+        $output .= '<option value="' . $day . '" ' . ($selected_day == $day ? 'selected' : '') . '>' . $day . '</option>';
     }
     $output .= '</select></div>';
 
