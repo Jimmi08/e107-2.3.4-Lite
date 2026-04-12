@@ -501,7 +501,7 @@
 		 * 
 		 */
 
-		function addons_group_icons($options = array())
+		function addon_group_icons($options = array())
 		{
 
 			$ns = e107::getRender();

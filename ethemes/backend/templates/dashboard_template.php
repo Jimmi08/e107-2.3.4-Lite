@@ -150,7 +150,7 @@ $DASHBOARD_TEMPLATE['positions']['menu-area-10'] = array();	 	// full bottom row
 
 2. infopanel / single / icons / multi
 	infopanel = custom text/content, for core+plug
-	single = one dashboard for all related plugins - for addons only
+	singlepanel = one dashboard for all related plugins - for addons only
 	multi = separated dashboards for each plugin - for addons only
 
 3.  icons - icons are rendered
@@ -200,7 +200,7 @@ $DASHBOARD_TEMPLATE['panels']['plug-infopanel-comments'] = array('method_name' =
 /* core version renders only tabs let on plugin how they want the dashboard to look */
 $DASHBOARD_TEMPLATE['panels']['addons-multi-tabs-chart'] = array('method_name' => 'addons_chart_tabs',  'multi' => true);
  
-$DASHBOARD_TEMPLATE['panels']['addons-single-icons-modules'] =  array(
-	'method_name' => 'addons_group_icons', 'key' => 'modules_panel', 'style' => 'flexpanel',
+$DASHBOARD_TEMPLATE['panels']['addon-singlepanel-icons'] =  array(
+	'method_name' => 'addon_group_icons', 'key' => 'modules_panel', 'style' => 'flexpanel',
 	'caption' => SITENAME . " modules"
 );
