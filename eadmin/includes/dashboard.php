@@ -546,7 +546,7 @@
 		/* multi dashboard for e_dashboard in tabs, chart is hardcoded in parent
 		/*****************************************/
 
-		public function addons_chart_tabs($options = array())
+		public function addon_single_panel($options = array())
 		{
 
 			$ns = e107::getRender();
@@ -554,7 +554,7 @@
 			// THIS IS CORRECT APPROACH FOR NOW
 			// --------------------- Plugin Addon Dashboards ---------------------- eg. e107_plugin/user/e_dashboard.php
 			// each plugin renders its own panel - chart method is needed 
-			$dashboards = $this->getAddonDashboards();
+			$dashboards = $this->getAddonDashboards($options);
 			if (!empty($dashboards))
 			{
 				$ns->setStyle('flexpanel');
@@ -577,11 +577,13 @@
 			return false;
 		}
 
-		function getAddonDashboards()
+		function getAddonDashboards($options = array())
 		{
 			$arr = array();
 
-			if ($plugs = e107::getAddonConfig('e_dashboard', null, 'chart'))
+			$dashboardKey     = varset($options['key'], 'chart');
+
+			if ($plugs = e107::getAddonConfig('e_dashboard', null, $dashboardKey))
 			{
 				foreach ($plugs as $plug => $val)
 				{

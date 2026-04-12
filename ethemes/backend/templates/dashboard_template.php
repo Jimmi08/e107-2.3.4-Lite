@@ -197,10 +197,13 @@ $DASHBOARD_TEMPLATE['panels']['core-infopanel-news'] = array('perm' => '0');
 /* comments for approval  */
 $DASHBOARD_TEMPLATE['panels']['plug-infopanel-comments'] = array('method_name' => 'core_infopanel_comments',  'caption' => LAN_LATEST_COMMENTS);
 
-/* core version renders only tabs let on plugin how they want the dashboard to look */
-$DASHBOARD_TEMPLATE['panels']['addons-multi-tabs-chart'] = array('method_name' => 'addons_chart_tabs',  'multi' => true);
- 
-$DASHBOARD_TEMPLATE['panels']['addon-singlepanel-icons'] =  array(
+
+/* core version renders only chart let plugin to decide how they want the dashboard to look */
+$DASHBOARD_TEMPLATE['panels']['addons-single-info-chart'] = array('method_name' => 'addon_single_panel', 'key'=>'chart');  //legacy
+$DASHBOARD_TEMPLATE['panels']['addons-single-info-panel'] = array('method_name' => 'addon_single_panel', 'key'=>'panel'); 
+
+/* custom panel for grouped plugin's icons */
+$DASHBOARD_TEMPLATE['panels']['addons-single-icons-modules'] =  array(
 	'method_name' => 'addon_group_icons', 'key' => 'modules_panel', 'style' => 'flexpanel',
 	'caption' => SITENAME . " modules"
 );
