@@ -5,8 +5,7 @@
 	 * Flexpanel dashboard style.
 	 */
 
-	if (!defined('e107_INIT'))
-	{
+	if (!defined('e107_INIT')) {
 		exit;
 	}
 
@@ -15,8 +14,7 @@
 	$flepanelEnabled = true;
 
 	// If not Main Admin and "Apply dashboard preferences to all administrators" is checked.
-	if (!getperms('1') && $adminPref == 1)
-	{
+	if (!getperms('1') && $adminPref == 1) {
 		$flepanelEnabled = false;
 	}
 
@@ -26,10 +24,8 @@
 	//define('ADMINFEEDMORE', 'https://e107.org/blog');
 
 	// Save rearranged menus to user.
-	if (e_AJAX_REQUEST)
-	{
-		if (FLEXPANEL_ENABLED && varset($_POST['core-flexpanel-order'], false))
-		{
+	if (e_AJAX_REQUEST) {
+		if (FLEXPANEL_ENABLED && varset($_POST['core-flexpanel-order'], false)) {
 			/*
 			$message = date('r') . "\n" . $message . "\n";
 			$message .= "\n_POST\n";
@@ -43,14 +39,11 @@
 			*/
 
 			// If "Apply dashboard preferences to all administrators" is checked.
-			if ($adminPref == 1)
-			{
+			if ($adminPref == 1) {
 				e107::getConfig()
 					->setPosted('core-flexpanel-order', $_POST['core-flexpanel-order'])
 					->save();
-			}
-			else
-			{
+			} else {
 				e107::getUser()
 					->getConfig()
 					->set('core-flexpanel-order', $_POST['core-flexpanel-order'])
@@ -100,13 +93,11 @@
 
 			/* personalize icon list */
 
-			if (self::$adminPref == 1)
-			{
+			if (self::$adminPref == 1) {
 				self::$user_pref = e107::getPref();
 			}
 			// Get $user_pref.
-			else
-			{
+			else {
 				self::$user_pref = e107::getUser()->getPref();
 			}
 
@@ -122,21 +113,18 @@
 			self::$fullAdminIcons =  e107::getNav()->adminLinks('core');
 			self::$fullPluginIcons =  e107::getNav()->adminLinks('plugin');
 
-			foreach (self::$fullAdminIcons as $key => $item)
-			{
+			foreach (self::$fullAdminIcons as $key => $item) {
 				$tmp[] = $key;
 			}
 			self::$fullAdminPanelArray = $tmp;
 
 
 			/* flex is enabled only if each admin can have its own admin dashboard adminpref = false */
-			if (FLEXPANEL_ENABLED)
-			{
+			if (FLEXPANEL_ENABLED) {
 				e107::css('inline', '.draggable-panels .panel-heading { cursor: move; }');
 				e107::js('core', 'core/admin.flexpanel.js', 'jquery', 4);
 
-				if (varset($_GET['mode']) == 'customize')
-				{
+				if (varset($_GET['mode']) == 'customize') {
 					e107::css('inline', '.layout-container { display: table; margin-left: auto; margin-right: auto; }');
 					e107::css('inline', '.layout-container label.radio { float: left; padding: 0; width: 120px; margin: 7px; cursor: pointer; text-align: center; }');
 					e107::css('inline', '.layout-container label.radio img { margin-left: auto; margin-right: auto; display: block; }');
@@ -145,12 +133,10 @@
 				}
 
 				// Save posted Layout type.
-				if (varset($_POST['e-flexpanel-layout']))
-				{
+				if (varset($_POST['e-flexpanel-layout'])) {
 
 					// If Layout has been changed, we clear previous arrangement in order to use defaults.
-					if (self::$user_pref['core-flexpanel-layout'] != $_POST['e-flexpanel-layout'])
-					{
+					if (self::$user_pref['core-flexpanel-layout'] != $_POST['e-flexpanel-layout']) {
 						$this->savePref('core-flexpanel-order', array());
 					}
 
@@ -172,15 +158,13 @@
 
 			// If "Apply dashboard preferences to all administrators" is checked.
 			// Save as $pref.
-			if ($adminPref == 1)
-			{
+			if ($adminPref == 1) {
 				e107::getConfig()
 					->setPosted($key, $value)
 					->save();
 			}
 			// Save as $user_pref.
-			else
-			{
+			else {
 				e107::getUser()
 					->getConfig()
 					->set($key, $value)
@@ -199,8 +183,7 @@
 		 */
 		function getMenuPosition($id)
 		{
-			if (!empty(self::$user_pref['core-flexpanel-order'][$id]))
-			{
+			if (!empty(self::$user_pref['core-flexpanel-order'][$id])) {
 				return self::$user_pref['core-flexpanel-order'][$id];
 			}
 
@@ -213,8 +196,7 @@
 
 			$layout = varset(self::$user_pref['core-flexpanel-layout'], 'default');
 
-			if (!empty($positions[$layout][$id]))
-			{
+			if (!empty($positions[$layout][$id])) {
 				return $positions[$layout][$id];
 			}
 
@@ -302,22 +284,15 @@
 
 			$adminPanel = "<div id='.$dashboardUniqueId.' >";
 
-			foreach ($newarray as $key => $val)
-			{
-				if ($dashboardLinks == "plugins")
-				{
-					if ($tmp = e107::getNav()->renderAdminButton($val['link'], $val['title'], $val['caption'], $val['perms'], $val['icon_32'], "div"))
-					{
+			foreach ($newarray as $key => $val) {
+				if ($dashboardLinks == "plugins") {
+					if ($tmp = e107::getNav()->renderAdminButton($val['link'], $val['title'], $val['caption'], $val['perms'], $val['icon_32'], "div")) {
 						$adminPanel .= $tmp;
 					}
-				}
-				else
-				{
+				} else {
 					//if (in_array($key, self::$userAdminPanelArray))  // so confusing for not advanced main admin
-					if (true)
-					{
-						if ($tmp = e107::getNav()->renderAdminButton($val['link'], $val['title'], $val['caption'], $val['perms'], $val['icon_32'], "div"))
-						{
+					if (true) {
+						if ($tmp = e107::getNav()->renderAdminButton($val['link'], $val['title'], $val['caption'], $val['perms'], $val['icon_32'], "div")) {
 							$adminPanel .= $tmp;
 						}
 					}
@@ -340,55 +315,41 @@
 			$admin_cat = e107::getNav()->adminCats();
 			$dashboards = array();
 
-			foreach ($admin_cat['id'] as $cat_key => $cat_id)
-			{
+			foreach ($admin_cat['id'] as $cat_key => $cat_id) {
 				$text_rend = '';
-				if ($cat_key != 6)
-				{
+				if ($cat_key != 6) {
 
 					$testarray = $options['personalize'] ?  self::$userAdminPanelArray : self::$fullAdminPanelArray;
-					foreach (self::$fullAdminIcons as $key => $funcinfo)
-					{
+					foreach (self::$fullAdminIcons as $key => $funcinfo) {
 						//$result = condition ? value1 : value2;
-						if (in_array($key, $testarray))
-						{
+						if (in_array($key, $testarray)) {
 
-							if ($funcinfo[4] == $cat_key)
-							{
+							if ($funcinfo[4] == $cat_key) {
 								$text_rend .= e107::getNav()->renderAdminButton($funcinfo[0], $funcinfo[1], $funcinfo[2], $funcinfo[3], $funcinfo[5], 'div');
 							}
-						}
-						else
-						{
+						} else {
 							//icon is disabled
 						}
 					}
-				}
-				else
-				{
+				} else {
 					//nothing, all plugins are rendered with separated method
 				}
 
-				if ($text_rend)
-				{
+				if ($text_rend) {
 					$dashboards[] = array('caption' => $admin_cat['title'][$cat_key], 'text' => $text_rend, 'mode' => $cat_id);
 				}
 			}
 
-			if (!empty($dashboards))
-			{
+			if (!empty($dashboards)) {
 				$ns->setStyle('flexpanel');
-				foreach ($dashboards as $val)
-
-				{
+				foreach ($dashboards as $val) {
 					$id = $val['mode'];
 					$id = str_replace('_', '-', $id); // TODO fix this if they solve #4940 different way
 					$ns->setUniqueId($id);
 					$inc = $ns->tablerender($val['caption'], $val['text'], $val['mode'], true);
 					$info = $this->getMenuPosition($id);
 
-					if (!isset($this->positions[$info['area']][$info['weight']]))
-					{
+					if (!isset($this->positions[$info['area']][$info['weight']])) {
 						$this->positions[$info['area']][$info['weight']] = '';
 					}
 					$this->positions[$info['area']][$info['weight']] .= $inc;
@@ -397,102 +358,8 @@
 			return false;
 		}
 
-		function renderLatestComments($type = "blocked")
-		{
-			$sql = e107::getDb();
-			$tp = e107::getParser();
-
-			//if(!check_class('B')) // XXX problems?
-			//	{
-			//		return;
-			//	}
-			$where = '';
-			switch ($type)
-			{
-				case "blocked":
-					$where = "comment_blocked=2";
-			}
 
 
-			if (!$rows = $sql->retrieve('comments', '*', $where . ' ORDER BY comment_id DESC LIMIT 25', true))
-			{
-				return null;
-			}
-
-			switch ($type)
-			{
-				case "blocked":
-					$where = "comment_blocked=2";
-			}
-
-			$sc = e107::getScBatch('comment');
-
-			$text = '
-		  <ul class="media-list unstyled list-unstyled">';
-			// <button class='btn btn-mini'><i class='icon-pencil'></i> Edit</button> 
-
-			//XXX Always keep template hardcoded here - heavy use of ajax and ids. 
-			$count = 1;
-
-			$lanVar = array('x' => '{USERNAME}', 'y' => '{TIMEDATE=relative}');
-
-			foreach ($rows as $row)
-			{
-				$hide = ($count > 3) ? ' hide' : '';
-
-				$TEMPLATE = "{SETIMAGE: w=40&h=40}
-				<li id='comment-" . $row['comment_id'] . "' class='media" . $hide . "'>
-				<span class='media-object pull-left'>{USER_AVATAR=" . $row['comment_author_id'] . "}</span> 
-				<div class='btn-group pull-right'>
-	            	<button data-target='" . e_BASE . "comment.php' data-comment-id='" . $row['comment_id'] . "' data-comment-action='delete' class='btn btn-sm btn-mini btn-danger'><i class='fa fa-remove'></i> " . LAN_DELETE . "</button>
-	            	<button data-target='" . e_BASE . "comment.php' data-comment-id='" . $row['comment_id'] . "' data-comment-action='approve' class='btn btn-sm btn-mini btn-success'><i class='fa fa-check'></i> " . LAN_APPROVE . "</button>
-	            </div>
-				<div class='media-body'>
-					<small class='muted smalltext'>" . $tp->lanVars(LAN_POSTED_BY_X, $lanVar) . "</small><br />
-					<p>{COMMENT}</p> 
-				</div>
-				</li>";
-
-				$sc->setVars($row);
-				$text .= $tp->parseTemplate($TEMPLATE, true, $sc);
-				$count++;
-			}
-
-
-			$text .= '
-     		</ul>
-		    <div class="right">
-		      <a class="btn btn-xs btn-mini btn-primary text-right" href="' . e_ADMIN . 'comment.php?searchquery=&filter_options=comment_blocked__2">' . LAN_VIEW_ALL . '</a>
-		    </div>
-		 ';
-			// $text .= "<small class='text-center text-warning'>Note: Not fully functional at the moment.</small>";
-
-			$ns = e107::getRender();
-			return $text;
-		}
-
-
-		/* Comments */
-		function core_infopanel_comments($options = array())
-		{
-			$ns = e107::getRender();
-
-			$dashboardUniqueId 	= varset($options['uniqueId'], time());
-			$dashboardStyle		= varset($options['style'], 'flexbox');
-			//$dashboardLinks     = varset($options['links'], '');
-			$dashboardCaption     = varset($options['caption'], '');
-
-			$ns->setStyle($dashboardStyle);
-			$ns->setUniqueId($dashboardUniqueId);
-
-			$content = 	$this->renderLatestComments();
-			if ($content)
-			{
-				$coreInfoPanelAdmin = $ns->tablerender($dashboardCaption, $content, $dashboardUniqueId, true);
-				return $coreInfoPanelAdmin;
-			}
-			return $content;
-		}
 
 
 		/**
@@ -513,21 +380,17 @@
 
 			$fullarray = self::$fullPluginIcons; //all plugins
 
-			if ($plugs = e107::getAddonConfig('e_dashboard', null, $dashboardKey))
-			{
+			if ($plugs = e107::getAddonConfig('e_dashboard', null, $dashboardKey)) {
 
-				foreach ($plugs as $key => $plug)
-				{
+				foreach ($plugs as $key => $plug) {
 					//check if is key
 					$newarray["p-" . $key] = $fullarray["p-" . $key];
 				}
 			}
 			$adminPanel = "<div id='.$dashboardUniqueId.' >";
 
-			foreach ($newarray as $key => $val)
-			{
-				if ($tmp = e107::getNav()->renderAdminButton($val['link'], $val['title'], $val['caption'], $val['perms'], $val['icon_32'], "div"))
-				{
+			foreach ($newarray as $key => $val) {
+				if ($tmp = e107::getNav()->renderAdminButton($val['link'], $val['title'], $val['caption'], $val['perms'], $val['icon_32'], "div")) {
 
 					$adminPanel .= $tmp;
 				}
@@ -555,19 +418,17 @@
 			// --------------------- Plugin Addon Dashboards ---------------------- eg. e107_plugin/user/e_dashboard.php
 			// each plugin renders its own panel - chart method is needed 
 			$dashboards = $this->getAddonDashboards($options);
-			if (!empty($dashboards))
-			{
+
+			if (!empty($dashboards)) {
 				$ns->setStyle('flexpanel');
-				foreach ($dashboards as $val)
-				{
+				foreach ($dashboards as $val) {
 					$id = $val['mode'];
 					$id = str_replace('_', '-', $id); // TODO fix this if they solve #4940 different way
 					$ns->setUniqueId($id);
 					$inc = $ns->tablerender($val['caption'], $val['text'], $val['mode'], true);
 					$info = $this->getMenuPosition($id);
 
-					if (!isset($this->positions[$info['area']][$info['weight']]))
-					{
+					if (!isset($this->positions[$info['area']][$info['weight']])) {
 						$this->positions[$info['area']][$info['weight']] = '';
 					}
 					$this->positions[$info['area']][$info['weight']] .= $inc;
@@ -579,38 +440,32 @@
 
 		function getAddonDashboards($options = array())
 		{
+			print_a($options);
 			$arr = array();
 
 			$dashboardKey     = varset($options['key'], 'chart');
 
-			if ($plugs = e107::getAddonConfig('e_dashboard', null, $dashboardKey))
-			{
-				foreach ($plugs as $plug => $val)
-				{
+			if ($plugs = e107::getAddonConfig('e_dashboard', null, $dashboardKey)) {
+
+				foreach ($plugs as $plug => $val) {
 					$adg = e107::getAddon($plug, 'e_dashboard');
 
-					if (!empty($adg->chartCaption))
-					{
+					if (!empty($adg->chartCaption)) {
 						$cap = $adg->chartCaption;
-					}
-					else
-					{
+					} else {
 						$cap = defset('LAN_PLUGIN_' . strtoupper($plug) . '_NAME', ucfirst($plug));
 					}
 
-					foreach ($val as $k => $item)
-					{
+					foreach ($val as $k => $item) {
 
 
-						if (!empty($item))
-						{
+						if (!empty($item)) {
 							//	$var[] = $item;
 							$renderMode = 'plug-infopanel-' . $plug . "-" . intval($k);
 
 
 
-							if (!isset($item['text']))
-							{
+							if (!isset($item['text'])) {
 
 								foreach ($item as $key => $v) // make sure the ids are unique.
 								{
@@ -619,15 +474,14 @@
 									unset($item[$key]);
 								}
 
+								var_dump($item);
 								$t = e107::getForm()->tabs($item);
 
 
 
 								//	$text .= $ns->tablerender($cap, $t, $renderMode, true);
 								$arr[] = array('caption' => $cap, 'text' => $t, 'mode' => $renderMode);
-							}
-							else
-							{
+							} else {
 								//	$text .= $ns->tablerender($item['caption'], $item['text'], $renderMode, true);
 								$arr[] = array('caption' => $item['caption'], 'text' => $item['text'], 'mode' => $renderMode);
 							}
@@ -673,31 +527,27 @@
 			}
 
 
-			foreach (self::$fullAdminIcons as $key => $icon)
-			{
-				if (getperms($icon['perms']))
-				{
+			foreach (self::$fullAdminIcons as $key => $icon) {
+				if (getperms($icon['perms'])) {
 					$checked = (varset($user_pref['core-infopanel-mye107']) && in_array($key, $user_pref['core-infopanel-mye107'])) ? true : false;
 					$text .= "<div class='left f-left list field-spacer form-inline' style='display:block;height:24px;width:200px;'>
 		                        " . $icon['icon'] . ' ' . $frm->checkbox_label($icon['title'], 'e-mye107[]', $key, $checked) . "</div>";
 				}
 			}
- 
-			 
+
+
 			$text .= "</div><div class='clear'>&nbsp;</div>";
-            
-            $text .= "<div style='padding-left:20px'>";
-     	    foreach (self::$fullPluginIcons as $key => $icon)
-			{
-				if (getperms($icon['perms']))
-				{
+
+			$text .= "<div style='padding-left:20px'>";
+			foreach (self::$fullPluginIcons as $key => $icon) {
+				if (getperms($icon['perms'])) {
 					$checked = (in_array('p-' . $key, $user_pref['core-infopanel-mye107'])) ? true : false;
 					$text .= "<div class='left f-left list field-spacer form-inline' style='display:block;height:24px;width:200px;'>
 		                         " . $icon['icon'] . $frm->checkbox_label($icon['title'], 'e-mye107[]', $key, $checked) . "</div>";
 				}
-			}      
-            
-            $text .= "</div><div class='clear'>&nbsp;</div>";
+			}
+
+			$text .= "</div><div class='clear'>&nbsp;</div>";
 			return $text;
 		}
 
@@ -707,14 +557,13 @@
 			$mes = e107::getMessage();
 			$ns = e107::getRender();
 
-			if ($render == false)
-			{
+			if ($render == false) {
 				return "";
 			}
 
 			$text2 = $ns->tablerender(LAN_PERSONALIZE_ICONS, $this->render_infopanel_icons(), 'personalize', true);
 			$text2 .= "<div class='clear'>&nbsp;</div>";
-		//	$text2 .= $ns->tablerender(LAN_PERSONALIZE_MENUS, $this->render_infopanel_menu_options(), 'personalize', true);
+			//	$text2 .= $ns->tablerender(LAN_PERSONALIZE_MENUS, $this->render_infopanel_menu_options(), 'personalize', true);
 			$text2 .= "<div class='clear'>&nbsp;</div>";
 			$text2 .= "<div id='button' class='buttons-bar center'>";
 			$text2 .= $frm->admin_button('submit-mye107', LAN_SAVE, 'create');
@@ -735,8 +584,7 @@
 			$frm = e107::getForm();
 
 
-			if (varset($_GET['mode']) == 'customize')
-			{
+			if (varset($_GET['mode']) == 'customize') {
 				echo $frm->open('infopanel', 'post', e_SELF);
 				//echo $ns->tablerender(LAN_DASHBOARD_LAYOUT, $this->renderLayoutPicker(), 'personalize', true);
 				echo '<div class="clear">&nbsp;</div>';
@@ -750,8 +598,7 @@
 
 			$supported_panels = e107::getTemplate(false, 'dashboard', 'panels');
 
-			foreach ($supported_panels as $key => $panel)
-			{
+			foreach ($supported_panels as $key => $panel) {
 
 
 				$params  = $panel;
@@ -770,8 +617,7 @@
 				$method_name = str_replace('-', '_', $method_name); // TODO fix this if they solve #4940 different way
 
 				$text = '';
-				if (method_exists('adminstyle_dashboard', $method_name))
-				{
+				if (method_exists('adminstyle_dashboard', $method_name)) {
 
 					$text = $this->$method_name($params);
 				}
@@ -781,8 +627,7 @@
 
 					$info = $this->getMenuPosition($key);
 
-					if (!isset($this->positions[$info['area']][$info['weight']]))
-					{
+					if (!isset($this->positions[$info['area']][$info['weight']])) {
 						$this->positions[$info['area']][$info['weight']] = '';
 					}
 					$this->positions[$info['area']][$info['weight']] .= $text;
@@ -821,8 +666,7 @@
 			*/
 
 			// Sorting panels.
-			foreach ($this->positions as $key => $value)
-			{
+			foreach ($this->positions as $key => $value) {
 				ksort($this->positions[$key]);
 			}
 
@@ -831,8 +675,7 @@
 			$template = varset($FLEXPANEL_LAYOUT);
 			$template = str_replace('{MESSAGES}', $mes->render(), $template);
 
-			foreach ($this->positions as $key => $value)
-			{
+			foreach ($this->positions as $key => $value) {
 				$token = '{' . strtoupper(str_replace('-', '_', $key)) . '}';
 				$template = str_replace($token, implode("\n", $value), $template);
 			}
