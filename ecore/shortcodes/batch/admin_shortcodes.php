@@ -1376,10 +1376,10 @@ class admin_shortcodes extends e_shortcode
 					$oldconfigs['e-user'][2] 		= array('icon' =>defset('E_16_BANLIST'), 'title' =>ADLAN_112, 'url' => e_ADMIN. 'users.php?searchquery=&filter_options=user_ban__1', 'total' =>$banned);
 
 
-					if(empty($pref['comments_disabled']) && varset($pref['comments_engine'],'e107') === 'e107')
-					{
-						$oldconfigs['e-comments'][0] 	= array('icon' => defset('E_16_COMMENT'), 'title' =>LAN_COMMENTS, 'url' => e_ADMIN_ABS. 'comment.php', 'total' =>$comments);
-					}
+					// if(empty($pref['comments_disabled']) && varset($pref['comments_engine'],'e107') === 'e107')
+					// {
+					// 	$oldconfigs['e-comments'][0] 	= array('icon' => defset('E_16_COMMENT'), 'title' =>LAN_COMMENTS, 'url' => e_ADMIN_ABS. 'comment.php', 'total' =>$comments);
+					// }
 					if($flo = $sql->count('generic', '(*)', "WHERE gen_type='failed_login'"))
 					{
 						//$text .= "\n\t\t\t\t\t<div style='padding-bottom: 2px;'>".E_16_FAILEDLOGIN." <a href='".e_ADMIN_ABS."fla.php'>".ADLAN_146.": $flo</a></div>";	
