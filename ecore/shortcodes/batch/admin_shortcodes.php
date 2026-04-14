@@ -507,8 +507,8 @@ class admin_shortcodes extends e_shortcode
 					$mes 	= e107::getMessage();
 
 					$active_uploads 	= $sql->count('upload', '(*)', 'WHERE upload_active = 0');
-					$submitted_news 	= $sql->count('submitnews', '(*)', 'WHERE submitnews_auth = 0');
-					$comments_pending 	= $sql->count('comments', '(*)', 'WHERE comment_blocked = 2 ');
+					// $submitted_news 	= $sql->count('submitnews', '(*)', 'WHERE submitnews_auth = 0');
+					// $comments_pending 	= $sql->count('comments', '(*)', 'WHERE comment_blocked = 2 ');
 
 				//	$text = "<div class='left'><div style='padding-bottom: 2px;'>".E_16_NEWS.($submitted_news ? " <a href='".e_ADMIN."newspost.php?mode=sub&amp;action=list'>".ADLAN_LAT_2.": $submitted_news</a>" : ' '.ADLAN_LAT_2.': 0').'</div>';
 				//	$text .= "<div style='padding-bottom: 2px;'>".E_16_COMMENT. " <a href='".e_ADMIN_ABS."comment.php?searchquery=&filter_options=comment_blocked__2'>".ADLAN_LAT_9.": $comments_pending</a></div>";		
@@ -517,15 +517,15 @@ class admin_shortcodes extends e_shortcode
 
 					$oldconfigs = array();
 
-					if(getperms('N'))
-					{
-						$oldconfigs['e-news'][0] = array('icon' =>defset('E_16_NEWS'), 'title' =>defset('ADLAN_LAT_2'), 'url' => e_ADMIN. 'newspost.php?mode=sub&amp;action=list', 'total' =>$submitted_news);
-					}
+					// if(getperms('N'))
+					// {
+					// 	$oldconfigs['e-news'][0] = array('icon' =>defset('E_16_NEWS'), 'title' =>defset('ADLAN_LAT_2'), 'url' => e_ADMIN. 'newspost.php?mode=sub&amp;action=list', 'total' =>$submitted_news);
+					// }
 
-					if(getperms('B') && empty($pref['comments_disabled']) && varset($pref['comments_engine'],'e107') === 'e107')
-					{
-						$oldconfigs['e-comment'][0] = array('icon' =>defset('E_16_COMMENT'), 'title' =>defset('ADLAN_LAT_9'), 'url' => e_ADMIN_ABS. 'comment.php?searchquery=&filter_options=comment_blocked__2', 'total' =>$comments_pending);
-					}
+					// if(getperms('B') && empty($pref['comments_disabled']) && varset($pref['comments_engine'],'e107') === 'e107')
+					// {
+					// 	$oldconfigs['e-comment'][0] = array('icon' =>defset('E_16_COMMENT'), 'title' =>defset('ADLAN_LAT_9'), 'url' => e_ADMIN_ABS. 'comment.php?searchquery=&filter_options=comment_blocked__2', 'total' =>$comments_pending);
+					// }
 
 					if(getperms('V'))
 					{
