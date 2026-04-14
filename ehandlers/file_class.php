@@ -543,55 +543,80 @@ class e_file
 		return $finfo;
 	}
 
-
 	/**
-	 *     Grab a remote file and save it in the /temp directory. requires CURL
+	 *  Grab a remote file and save it in the /temp directory. requires CURL
+	 *  Download remote file via cURL with better timeout handling
 	 *
 	 * @param string $remote_url
 	 * @param string $local_file string filename to save as
 	 * @param string $type       media, temp, or import
+	 * @param int    $timeout    cURL timeout in seconds (default 40)
 	 * @return boolean TRUE on success, FALSE on failure (which includes absence of CURL functions)
 	 */
+
 	function getRemoteFile($remote_url, $local_file, $type = 'temp', $timeout = 40)
 	{
-
-		// check for cURL
-		if(!function_exists('curl_init'))
+		if (!function_exists('curl_init'))
 		{
 			$msg = 'e_file::getRemoteFile() requires cURL to be installed.';
-			if(E107_DEBUG_LEVEL > 0)
+			if (E107_DEBUG_LEVEL > 0)
 			{
 				e107::getLog()->addDebug($msg);
 			}
-
 			error_log($msg);
-
-			return false;            // May not be installed
+			return false;
 		}
 
+		// Determine target path (minimalist, no extra checks if not needed)
 		$path = ($type === 'media') ? e_MEDIA : e_TEMP;
-
-		if($type === 'import')
+		if ($type === 'import')
 		{
 			$path = e_IMPORT;
 		}
 
-		$fp = fopen($path . $local_file, 'w'); // media-directory or temp directory is the root.
+		$localPath = $path . $local_file;
+
+		// Open file handle early
+		$fp = fopen($localPath, 'w');
+		if (!$fp)
+		{
+			error_log("e_file::getRemoteFile() - Cannot open local file for writing: {$localPath}");
+			return false;
+		}
 
 		$cp = $this->initCurl($remote_url);
+
 		curl_setopt($cp, CURLOPT_FILE, $fp);
-		curl_setopt($cp, CURLOPT_TIMEOUT, $timeout);
-		set_time_limit($timeout);
+		curl_setopt($cp, CURLOPT_TIMEOUT, $timeout);        // total transfer timeout
+		curl_setopt($cp, CURLOPT_CONNECTTIMEOUT, 10);       // connection timeout (important!)
+
+		// === Key improvement: extend PHP time limit safely ===
+		// We give PHP a bit more time than cURL timeout + margin
+		$phpTimeout = max(ini_get('max_execution_time'), $timeout + 15);
+		@set_time_limit($phpTimeout);   // @ to suppress warning if safe_mode or disabled
 
 		$buffer = curl_exec($cp);
 
-		if(curl_errno($cp)) // Fixes curl_error output - here see #1936
-		{
-			error_log('cURL error: ' . curl_error($cp));
-		}
+		$curlErrNo = curl_errno($cp);
+		$curlError = curl_error($cp);
 
 		curl_close($cp);
 		fclose($fp);
+
+		if ($curlErrNo)
+		{
+			error_log("cURL error [{$curlErrNo}]: {$curlError} | URL: {$remote_url}");
+			// Optional: delete partial file on error
+			@unlink($localPath);
+			return false;
+		}
+
+		// Check if file was actually written (empty file = probably failed)
+		if (filesize($localPath) === 0)
+		{
+			@unlink($localPath);
+			return false;
+		}
 
 		return (bool) $buffer;
 	}
