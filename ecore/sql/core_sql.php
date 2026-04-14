@@ -271,65 +271,7 @@ CREATE TABLE menus (
   PRIMARY KEY  (menu_id)
 ) ENGINE=InnoDB;
 # --------------------------------------------------------
-
-#
-# Table structure for table `news`
-#
-
-CREATE TABLE news (
-  news_id int(10) unsigned NOT NULL auto_increment,
-  news_title varchar(255) NOT NULL default '',
-  news_sef varchar(255) NOT NULL default '',
-  news_body longtext NOT NULL,
-  news_extended longtext NOT NULL,
-  news_meta_title varchar(255) NOT NULL default '',
-  news_meta_keywords  varchar(255) NOT NULL default '',
-  news_meta_description text NOT NULL,
-  news_meta_robots  varchar(255) default '',
-  news_datestamp int(10) unsigned NOT NULL default '0',
-  news_modified int(10) unsigned NOT NULL default '0',
-  news_author int(10) unsigned NOT NULL default '0',
-  news_category tinyint(3) unsigned NOT NULL default '0',
-  news_allow_comments tinyint(3) unsigned NOT NULL default '0',
-  news_start int(10) unsigned NOT NULL default '0',
-  news_end int(10) unsigned NOT NULL default '0',
-  news_class varchar(255) NOT NULL default '0',
-  news_render_type varchar(20) NOT NULL default '0',
-  news_comment_total int(10) unsigned NOT NULL default '0',
-  news_summary text NOT NULL,
-  news_thumbnail text NOT NULL,
-  news_sticky tinyint(3) unsigned NOT NULL default '0',
-  news_template varchar(50) default NULL,
-  PRIMARY KEY  (news_id),
-  KEY news_category  (news_category),
-  KEY news_start_end (news_start,news_end),
-  KEY news_datestamp (news_datestamp),
-  KEY news_sticky  (news_sticky),
-  KEY news_render_type  (news_render_type),
-  KEY news_class (news_class)
-) ENGINE=InnoDB;
-
-
-# --------------------------------------------------------
-
-#
-# Table structure for table `news_category`
-#
-
-CREATE TABLE news_category (
-  category_id tinyint(3) unsigned NOT NULL auto_increment,
-  category_name varchar(200) NOT NULL default '',
-  category_sef varchar(200) NOT NULL default '',
-  category_meta_description text NOT NULL,
-  category_meta_keywords  varchar(255) NOT NULL default '',
-  category_manager tinyint(3) unsigned NOT NULL default '254',
-  category_icon varchar(250) NOT NULL default '',
-  category_order tinyint(3) unsigned NOT NULL default '0',
-  category_template varchar(50) default NULL,
-  PRIMARY KEY  (category_id),
-  KEY category_order (category_order)
-) ENGINE=InnoDB;
-# --------------------------------------------------------
+ 
 
 #
 # Table structure for table `online`
@@ -433,23 +375,6 @@ CREATE TABLE plugin (
   UNIQUE KEY plugin_path (plugin_path)
 ) ENGINE=InnoDB;
 
-# --------------------------------------------------------
-#
-# Table structure for table `rate`
-#
-
-CREATE TABLE rate (
-  rate_id int(10) unsigned NOT NULL auto_increment,
-  rate_table varchar(100) NOT NULL default '',
-  rate_itemid int(10) unsigned NOT NULL default '0',
-  rate_rating int(10) unsigned NOT NULL default '0',
-  rate_votes int(10) unsigned NOT NULL default '0',
-  rate_voters text NOT NULL,
-  rate_up int(10) unsigned NOT NULL default '0',
-  rate_down int(10) unsigned NOT NULL default '0',
-  PRIMARY KEY  (rate_id)
-) ENGINE=InnoDB;
-# --------------------------------------------------------
 
 #
 # Table structure for table `session`
@@ -465,30 +390,6 @@ CREATE TABLE session (
 ) ENGINE=InnoDB;
 # --------------------------------------------------------
 
-
-#
-# Table structure for table `submitnews`
-#
-
-CREATE TABLE submitnews (
-  submitnews_id int(10) unsigned NOT NULL auto_increment,
-  submitnews_name varchar(100) NOT NULL default '',
-  submitnews_email varchar(100) NOT NULL default '',
-  submitnews_user int(10) unsigned NOT NULL default '0',
-  submitnews_title varchar(200) NOT NULL default '',
-  submitnews_category tinyint(3) unsigned NOT NULL default '0',
-  submitnews_item text NOT NULL,
-  submitnews_datestamp int(10) unsigned NOT NULL default '0',
-  submitnews_ip varchar(45) NOT NULL default '',
-  submitnews_auth tinyint(3) unsigned NOT NULL default '0',
-  submitnews_file text NOT NULL,
-  submitnews_keywords  varchar(255) NOT NULL default '',
-  submitnews_description text,
-  submitnews_summary text,
-  submitnews_media text,
-  PRIMARY KEY  (submitnews_id)
-) ENGINE=InnoDB;
-# --------------------------------------------------------
 
 #
 # Table structure for table `tmp`
