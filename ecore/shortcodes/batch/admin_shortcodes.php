@@ -1353,7 +1353,7 @@ class admin_shortcodes extends e_shortcode
 					$members 		= $sql->count('user', '(*)', 'WHERE user_ban=0');
 					$unverified 	= $sql->count('user', '(*)', 'WHERE user_ban=2');
 					$banned 		= $sql->count('user', '(*)', 'WHERE user_ban=1');
-					$comments 		= $sql->count('comments');
+					//$comments 		= $sql->count('comments');
 
 					/*
 					$unver = ($unverified ? " <a href='".e_ADMIN."users.php?searchquery=&amp;filter_options=user_ban__2&amp;filter=unverified'> ".ADLAN_111.": {$unverified}</a>" : ADLAN_111);
