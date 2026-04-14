@@ -24,12 +24,12 @@ define("SEP", " <span class='fa fa-angle-double-right e-breadcrumb'></span> ");
 
 $themePref = e107::getThemeConfig('backend', true)->getPref();
  
-$panelHeadingBg = varset($themePref['panel-heading-bg'], "#DDD");
-$panelHeadingColor = varset($themePref['panel-heading-color'], "#222");
-$panelIconBorder = varset($themePref['panel-icon-border'], "#ccc");
-$panelIconColor = varset($themePref['panel-icon-color'] , "#FFF");
-$panelIconBg = varset($themePref['panel-icon-bg'], "#022643");
-
+$panelHeadingBg = vartrue($themePref['panel-heading-bg'], "#DDD");
+$panelHeadingColor = vartrue($themePref['panel-heading-color'], "#222");
+$panelIconBorder = vartrue($themePref['panel-icon-border'], "#ccc");
+$panelIconColor = vartrue($themePref['panel-icon-color'] , "#FFF");
+$panelIconBg = vartrue($themePref['panel-icon-bg'], "#022643");
+ 
 $inlinecss = ":root {
 			--panel-icon-border: {$panelIconBorder};
 			--panel-icon-color: {$panelIconColor};
