@@ -440,7 +440,7 @@
 
 		function getAddonDashboards($options = array())
 		{
-			print_a($options);
+
 			$arr = array();
 
 			$dashboardKey     = varset($options['key'], 'chart');
@@ -474,10 +474,8 @@
 									unset($item[$key]);
 								}
 
-								var_dump($item);
+							
 								$t = e107::getForm()->tabs($item);
-
-
 
 								//	$text .= $ns->tablerender($cap, $t, $renderMode, true);
 								$arr[] = array('caption' => $cap, 'text' => $t, 'mode' => $renderMode);
